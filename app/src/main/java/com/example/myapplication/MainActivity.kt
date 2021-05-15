@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //deklarasi dan inisiasi kelas
         val homefrag = Home()
         val searchfrag = Search()
         val notificationfrag = Notification()
