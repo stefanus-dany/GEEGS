@@ -23,9 +23,7 @@ class MainActivity : AppCompatActivity() {
         val searchfrag = Search()
         val notificationfrag = Notification()
         val profilefrag = Profile()
-        //close comment declaration
 
-        //fragment utama broo
         makeCurrentFragment(homefrag, R.id.home_icon)
 
         //mengubah fragment saat icon di klik
