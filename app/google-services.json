@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "406995720331",
+    "project_id": "geegs-85b13",
+    "storage_bucket": "geegs-85b13.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406995720331:android:55958916ac710a19e7dc8e",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "406995720331-emj3im4im8n4eic4e6iecm5qrgpve056.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWJRgBxK0Cfpr5BegoH35PlmxdjE-Mgsw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "406995720331-emj3im4im8n4eic4e6iecm5qrgpve056.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
