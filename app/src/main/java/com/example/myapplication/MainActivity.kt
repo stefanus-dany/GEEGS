@@ -10,8 +10,8 @@ import com.example.myapplication.Fragments.Search
 import com.example.myapplication.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
 
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         makeCurrentFragment(homefrag, R.id.home_icon)
 
+        //mengubah fragment saat icon di klik
         binding.bottomNavigation.setOnNavigationItemSelectedListener{
             when(it.itemId){
                 R.id.home_icon -> makeCurrentFragment(homefrag, R.id.home_icon)
