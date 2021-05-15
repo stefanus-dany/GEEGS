@@ -24,7 +24,10 @@ class MainActivity : AppCompatActivity() {
         val notificationfrag = Notification()
         val profilefrag = Profile()
 
+
         makeCurrentFragment(homefrag, R.id.home_icon)
+        //haloooo
+
 
         //mengubah fragment saat icon di klik
         binding.bottomNavigation.setOnNavigationItemSelectedListener{
