@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         val profilefrag = Profile()
         //close comment declaration
 
-        //fragment utama
+        //fragment utama broo
         makeCurrentFragment(homefrag, R.id.home_icon)
 
         //mengubah fragment saat icon di klik
