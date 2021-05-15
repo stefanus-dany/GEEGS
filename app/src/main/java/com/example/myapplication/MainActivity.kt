@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         val searchfrag = Search()
         val notificationfrag = Notification()
         val profilefrag = Profile()
+        //close comment declaration
 
         makeCurrentFragment(homefrag, R.id.home_icon)
 
