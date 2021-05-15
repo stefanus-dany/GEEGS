@@ -30,13 +30,6 @@ class Register : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            if (binding.usernameRegister.text.toString().trim().isEmpty()) {
-                binding.usernameRegister.error = "Please enter username"
-                binding.usernameRegister.requestFocus()
-                binding.progressBar.visibility = View.INVISIBLE
-                return@setOnClickListener
-            }
-
             if (binding.fullnameRegister.text.toString().trim().isEmpty()) {
                 binding.fullnameRegister.error = "Please enter fullname"
                 binding.fullnameRegister.requestFocus()
@@ -78,20 +71,14 @@ class Register : AppCompatActivity() {
                             val reference = FirebaseDatabase.getInstance().reference.child("Users")
                                     .child(userId)
 
-                            //simpan di database Topics/listOfUsers
-                            val reference1 = FirebaseDatabase.getInstance().reference.child("Users")
-                                    .child(userId)
-
                             val hashMap = HashMap<String, String>()
-                            hashMap.put("id", userId)
-                            hashMap.put("email", binding.email.text.toString())
-                            hashMap.put("fullname", binding.fullnameRegister.text.toString())
+                            hashMap["id"] = userId
+                            hashMap["email"] = binding.email.text.toString()
+                            hashMap["fullname"] = binding.fullnameRegister.text.toString()
 
-                            reference1.setValue(hashMap)
                             reference.setValue(hashMap).addOnCompleteListener {
                                 if (task.isSuccessful) {
                                     val move = Intent(this, Login::class.java)
-                                    move.putExtra("Kosongan", true)
                                     startActivity(move)
                                     finish()
                                     binding.progressBar.visibility = View.INVISIBLE
