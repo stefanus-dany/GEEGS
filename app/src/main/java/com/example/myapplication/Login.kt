@@ -21,7 +21,9 @@ import com.google.firebase.database.ValueEventListener
 class Login : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var user: FirebaseUser
     private lateinit var sharedPreferences: SharedPreferences
+    private var moveFromVerifiedEmailToLogin = false
     private val TAG = "check"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,13 +32,11 @@ class Login : AppCompatActivity() {
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
         sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-//
-//        val editor = sharedPreferences.edit()
-//        editor.clear()
-//        editor.commit()
+
         val emailSaved = sharedPreferences.getString(companion.CHECK_EMAIL, null)
         val passwordSaved = sharedPreferences.getString(companion.CHECK_PASSWORD, null)
         val rememberMe = sharedPreferences.getBoolean(companion.REMEMBER_ME, false)
+        moveFromVerifiedEmailToLogin = intent.getBooleanExtra(companion.MOVE_FROM_VERIFIED_EMAIL_TO_LOGIN, false)
 
         Log.i(TAG, "onCreate email: $emailSaved")
         Log.i(TAG, "onCreate pass: $passwordSaved")
@@ -53,6 +53,7 @@ class Login : AppCompatActivity() {
         }
 
         binding.btnLogin.setOnClickListener {
+
             binding.progressBar.visibility = View.VISIBLE
 
             if (binding.email.text.toString().trim().isEmpty()) {
@@ -89,20 +90,32 @@ class Login : AppCompatActivity() {
         )
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val reference = FirebaseDatabase.getInstance().reference.child("Users")
-                        .child(auth.currentUser.uid)
-                    reference.addValueEventListener(object : ValueEventListener {
-                        override fun onDataChange(dataSnapshot: DataSnapshot) {
-                            binding.progressBar.visibility = View.INVISIBLE
-                            val user = auth.currentUser
-                            updateUI(user)
-                        }
+                    //get user
+                    user = auth.currentUser
+                    if (user.isEmailVerified) {
+                        val reference = FirebaseDatabase.getInstance().reference.child("Users")
+                            .child(auth.currentUser.uid)
+                        reference.addValueEventListener(object : ValueEventListener {
+                            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                binding.progressBar.visibility = View.INVISIBLE
+                                val user = auth.currentUser
+                                updateUI(user)
+                            }
 
-                        override fun onCancelled(error: DatabaseError) {
-                            // Failed to read value
-                            binding.progressBar.visibility = View.INVISIBLE
-                        }
-                    })
+                            override fun onCancelled(error: DatabaseError) {
+                                // Failed to read value
+                                binding.progressBar.visibility = View.INVISIBLE
+                            }
+                        })
+                    } else {
+                        Toast.makeText(this, "Verified your account first!", Toast.LENGTH_SHORT)
+                            .show()
+                        val move = Intent(this, VerifiedEmail::class.java)
+                        move.putExtra(companion.MOVE_FROM_LOGIN_TO_VERIFIED_EMAIL, true)
+                        startActivity(move)
+
+                    }
+
 
                 } else {
                     // If sign in fails, display a message to the user.
@@ -115,7 +128,7 @@ class Login : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        if (auth.currentUser!=null){
+        if (auth.currentUser != null && !moveFromVerifiedEmailToLogin) {
             updateUI(auth.currentUser)
         }
     }
@@ -131,12 +144,11 @@ class Login : AppCompatActivity() {
         super.onPause()
         Log.i(TAG, "onPause: ${binding.rememberMe.isChecked}")
         val editor = sharedPreferences.edit()
-        if (binding.rememberMe.isChecked){
+        if (binding.rememberMe.isChecked) {
             editor.putString(companion.CHECK_EMAIL, binding.email.text.toString())
             editor.putString(companion.CHECK_PASSWORD, binding.password.text.toString())
             editor.putBoolean(companion.REMEMBER_ME, true)
             editor.apply()
-        }
-        else editor.clear().commit()
+        } else editor.clear().commit()
     }
 }
