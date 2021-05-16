@@ -9,5 +9,5 @@
     <color name="navy">#222831</color>
     <color name="grayLight">#C4C4C4</color>
     <color name="white">#FFFFFFFF</color>
-    222831
+    <color name="grey">#CACACA</color>
 </resources>
