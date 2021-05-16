@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
     }
 
     fun makeCurrentFragment(fragment : Fragment, item : Int){

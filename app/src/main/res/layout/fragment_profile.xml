@@ -34,43 +34,16 @@
 
 
     <TextView
-        android:id="@+id/tv_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat"
-        android:layout_marginTop="20dp"
-        android:text="ID"
-        android:textSize="18sp"
-        android:textColor="@color/grey"
-        app:layout_constraintTop_toBottomOf="@id/et_name"
-        app:layout_constraintStart_toStartOf="parent"
-        />
-
-    <EditText
-        android:id="@+id/et_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat"
-        android:ems="10"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        android:inputType="textPersonName"
-        android:hint="ID"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_id"/>
-
-    <TextView
         android:id="@+id/tv_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat"
         android:layout_marginTop="20dp"
         android:text="Email"
-        android:textSize="18sp"
         android:textColor="@color/grey"
-        app:layout_constraintTop_toBottomOf="@id/et_id"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@id/et_name"/>
 
     <EditText
         android:id="@+id/et_email"
