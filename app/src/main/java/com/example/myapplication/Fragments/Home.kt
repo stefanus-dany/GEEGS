@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.myapplication.Login
+import com.example.myapplication.addsong.AddSong
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -25,6 +26,10 @@ class Home : Fragment() {
         binding.btnLogout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
             startActivity(Intent(context, Login::class.java))
+            activity?.finish()
+        }
+        binding.btnAddsong.setOnClickListener {
+            startActivity(Intent(context, AddSong::class.java))
             activity?.finish()
         }
     }

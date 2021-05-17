@@ -13,6 +13,7 @@
         <activity android:name=".Login"></activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".Register" />
+        <activity android:name=".addsong.AddSong" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

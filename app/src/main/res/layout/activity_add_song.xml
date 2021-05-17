@@ -35,9 +35,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="(Primary Artist, Author, Creator, etc)"
+        android:hint="(Primary Artist, Author, Creator, etc)"
         android:fontFamily="@font/montserrat"
-        android:textColor="@color/grey"
+        android:textColor="@color/navy"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_by" />
@@ -60,8 +60,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat"
         android:inputType="textPersonName"
-        android:text="(Song Title)"
-        android:textColor="@color/grey"
+        android:hint="(Song Title)"
+        android:textColor="@color/navy"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@id/tv_addsong"
         app:layout_constraintTop_toBottomOf="@id/tv_title" />
@@ -106,6 +106,7 @@
         android:layout_height="150dp"
         android:background="@drawable/bg_field"
         android:inputType="text|textMultiLine"
+        android:textColor="@color/navy"
         app:layout_constraintStart_toStartOf="@id/tv_addsong"
         app:layout_constraintTop_toBottomOf="@id/tv_lyrics"/>
 
@@ -126,15 +127,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="(Youtube URL)"
+        android:hint="(Youtube URL)"
         android:fontFamily="@font/montserrat"
-        android:textColor="@color/grey"
+        android:textColor="@color/navy"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@id/tv_addsong"
         app:layout_constraintTop_toBottomOf="@id/tv_url" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_sumbitSong"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -143,5 +144,17 @@
         android:fontFamily="@font/montserrat"
         app:layout_constraintStart_toStartOf="@id/tv_addsong"
         app:layout_constraintTop_toBottomOf="@id/et_url"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteX="172dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
