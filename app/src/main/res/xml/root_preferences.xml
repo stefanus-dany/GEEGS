@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        android:title="GEEGS Settings">
+
+        <CheckBoxPreference
+            android:key="notification"
+            android:defaultValue="false"
+            android:title="Notify me when charts updated"
+            android:summary="Send Notification"/>
+
+        <!--        <DropDownPreference-->
+        <!--            android:key="dropDown"-->
+        <!--            android:title="Wallpaper"-->
+        <!--            android:entries="@array/values_wallpaper"-->
+        <!--            android:summary="Change Wallpaper"/>-->
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

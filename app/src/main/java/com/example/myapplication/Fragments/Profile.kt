@@ -1,12 +1,15 @@
 package com.example.myapplication.Fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.myapplication.MainActivity
 import com.example.myapplication.R
+import com.example.myapplication.Settings
 import com.example.myapplication.databinding.FragmentProfileBinding
 import com.example.myapplication.model.UserModel
 import com.google.firebase.auth.FirebaseAuth
@@ -40,12 +43,12 @@ class Profile : Fragment() {
         auth = FirebaseAuth.getInstance()
         user = auth.currentUser
 
-        var profile = FirebaseDatabase.getInstance().reference.child("Users").child(user.uid)
+        val profile = FirebaseDatabase.getInstance().reference.child("Users").child(user.uid)
         profile.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 val value = snapshot.getValue(UserModel::class.java)
-                binding.name.setText(value?.fullname)
-                binding.email.setText(value?.email)
+                binding.name.text = value?.fullname
+                binding.email.text = value?.email
             }
             override fun onCancelled(error: DatabaseError) {
             }
@@ -53,7 +56,7 @@ class Profile : Fragment() {
 
 
         binding.ibSettings.setOnClickListener{
-            //todo
+            activity?.startActivity(Intent(context, Settings::class.java))
         }
     }
 
