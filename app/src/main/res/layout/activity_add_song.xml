@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,154 +8,159 @@
     android:padding="30dp"
     tools:context=".addsong.AddSong">
 
-    <TextView
-        android:id="@+id/tv_addsong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat"
-        android:text="ADD SONG"
-        android:textColor="@color/navy"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_by"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/montserrat"
-        android:text="by*"
-        android:textColor="@color/grey"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@id/tv_addsong"
-        app:layout_constraintTop_toBottomOf="@id/tv_addsong" />
-
-    <EditText
-        android:id="@+id/et_by"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:hint="(Primary Artist, Author, Creator, etc)"
-        android:fontFamily="@font/montserrat"
-        android:textColor="@color/navy"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_by" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/montserrat"
-        android:text="Title*"
-        android:textColor="@color/grey"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@id/tv_addsong"
-        app:layout_constraintTop_toBottomOf="@id/et_by" />
+        <TextView
+            android:id="@+id/tv_addsong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:text="ADD SONG"
+            android:textColor="@color/navy"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/et_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat"
-        android:inputType="textPersonName"
-        android:hint="(Song Title)"
-        android:textColor="@color/navy"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@id/tv_addsong"
-        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+        <TextView
+            android:id="@+id/tv_by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/montserrat"
+            android:text="by*"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/tv_addsong"
+            app:layout_constraintTop_toBottomOf="@id/tv_addsong" />
 
-    <TextView
-        android:id="@+id/tv_genre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/montserrat"
-        android:text="Genre*"
-        android:textColor="@color/grey"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_addsong"
-        app:layout_constraintTop_toBottomOf="@+id/et_title" />
+        <EditText
+            android:id="@+id/et_by"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:hint="(Primary Artist, Author, Creator, etc)"
+            android:inputType="textPersonName"
+            android:textColor="@color/navy"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_by" />
 
-    <Spinner
-        android:id="@+id/listgenre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
-        android:entries="@array/musicgenre_arrays"
-        app:layout_constraintStart_toStartOf="@id/tv_addsong"
-        app:layout_constraintTop_toBottomOf="@+id/tv_genre" />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Title*"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/tv_addsong"
+            app:layout_constraintTop_toBottomOf="@id/et_by" />
 
-    <TextView
-        android:id="@+id/tv_lyrics"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/montserrat"
-        android:text="Lyrics*"
-        android:textColor="@color/grey"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_addsong"
-        app:layout_constraintTop_toBottomOf="@+id/listgenre" />
+        <EditText
+            android:id="@+id/et_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:hint="(Song Title)"
+            android:inputType="textPersonName"
+            android:textColor="@color/navy"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/tv_addsong"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
-    <EditText
-        android:id="@+id/et_lyrics"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="@drawable/bg_field"
-        android:inputType="text|textMultiLine"
-        android:textColor="@color/navy"
-        app:layout_constraintStart_toStartOf="@id/tv_addsong"
-        app:layout_constraintTop_toBottomOf="@id/tv_lyrics"/>
+        <TextView
+            android:id="@+id/tv_genre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Genre*"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_addsong"
+            app:layout_constraintTop_toBottomOf="@+id/et_title" />
 
-    <TextView
-        android:id="@+id/tv_url"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/montserrat"
-        android:text="Youtube URL"
-        android:textColor="@color/grey"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@id/tv_addsong"
-        app:layout_constraintTop_toBottomOf="@id/et_lyrics" />
+        <Spinner
+            android:id="@+id/listgenre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:entries="@array/musicgenre_arrays"
+            android:spinnerMode="dropdown"
+            app:layout_constraintStart_toStartOf="@id/tv_addsong"
+            app:layout_constraintTop_toBottomOf="@+id/tv_genre" />
 
-    <EditText
-        android:id="@+id/et_url"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:hint="(Youtube URL)"
-        android:fontFamily="@font/montserrat"
-        android:textColor="@color/navy"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@id/tv_addsong"
-        app:layout_constraintTop_toBottomOf="@id/tv_url" />
+        <TextView
+            android:id="@+id/tv_lyrics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Lyrics*"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_addsong"
+            app:layout_constraintTop_toBottomOf="@+id/listgenre" />
 
-    <Button
-        android:id="@+id/btn_sumbitSong"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="Submit"
-        android:textAllCaps="false"
-        android:fontFamily="@font/montserrat"
-        app:layout_constraintStart_toStartOf="@id/tv_addsong"
-        app:layout_constraintTop_toBottomOf="@id/et_url"/>
+        <EditText
+            android:id="@+id/et_lyrics"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@drawable/bg_field"
+            android:inputType="text|textMultiLine"
+            android:textColor="@color/navy"
+            app:layout_constraintStart_toStartOf="@id/tv_addsong"
+            app:layout_constraintTop_toBottomOf="@id/tv_lyrics" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteX="172dp" />
+        <TextView
+            android:id="@+id/tv_url"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Youtube URL"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/tv_addsong"
+            app:layout_constraintTop_toBottomOf="@id/et_lyrics" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/et_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:hint="(Youtube URL)"
+            android:inputType="textPersonName"
+            android:textColor="@color/navy"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/tv_addsong"
+            app:layout_constraintTop_toBottomOf="@id/tv_url" />
+
+        <Button
+            android:id="@+id/btn_sumbitSong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Submit"
+            android:textAllCaps="false"
+            app:layout_constraintStart_toStartOf="@id/tv_addsong"
+            app:layout_constraintTop_toBottomOf="@id/et_url" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="172dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

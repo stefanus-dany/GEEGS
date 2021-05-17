@@ -35,7 +35,6 @@
         android:fontFamily="@font/montserrat"
         android:ems="10"
         android:textSize="18sp"
-        android:textColor="@color/black"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_name"/>
@@ -59,7 +58,6 @@
         android:fontFamily="@font/montserrat"
         android:ems="10"
         android:textSize="18sp"
-        android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/tv_email"
         app:layout_constraintStart_toStartOf="parent" />
 

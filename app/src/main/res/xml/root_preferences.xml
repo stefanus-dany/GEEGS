@@ -1,20 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:key="first_preferencescreen">
+
     <PreferenceCategory
-        android:title="GEEGS Settings">
-
+        android:title="App Settings"
+        android:icon="@drawable/ic_baseline_settings_24">
         <CheckBoxPreference
-            android:key="notification"
-            android:defaultValue="false"
-            android:title="Notify me when charts updated"
-            android:summary="Send Notification"/>
+            android:key="nightmode"
+            android:title="Night Mode"
+            />
 
-        <!--        <DropDownPreference-->
-        <!--            android:key="dropDown"-->
-        <!--            android:title="Wallpaper"-->
-        <!--            android:entries="@array/values_wallpaper"-->
-        <!--            android:summary="Change Wallpaper"/>-->
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Profile"
+        android:icon="@drawable/ic_baseline_person_24">
+        <EditTextPreference
+            android:key="name"
+            android:title="Change Name"
+            app:useSimpleSummaryProvider="true"
+            />
+
+        <EditTextPreference
+            android:key="email"
+            android:title="Change Email"
+            app:useSimpleSummaryProvider="true"
+            />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Notifications"
+        android:icon="@drawable/ic_baseline_notifications_24">
+
+        <SwitchPreferenceCompat
+            android:key="notifications"
+            android:title="Disable notifications"
+            android:summaryOn="You will no longer receive notifications"
+            android:summaryOff="You will receive all notifications"/>
 
     </PreferenceCategory>
 
