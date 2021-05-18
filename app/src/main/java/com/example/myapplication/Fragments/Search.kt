@@ -1,20 +1,15 @@
 package com.example.myapplication.Fragments
 
-import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.Adapter.SongAdapter
-import com.example.myapplication.R
-import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.databinding.FragmentSearchBinding
 import com.example.myapplication.model.SongModel
-import com.example.myapplication.model.UserModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -34,33 +29,24 @@ class Search : Fragment() {
     ): View? {
         binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
         return binding.root
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         data = mutableListOf()
-        displayData = data
-        adapter = SongAdapter(data)
-
+        displayData = mutableListOf()
+        read()
+        adapter = SongAdapter(displayData)
         adapter.context = requireContext()
         binding.rvSearchlist.layoutManager = LinearLayoutManager(context)
         binding.rvSearchlist.adapter = adapter
-
-
         search()
-
-
     }
 
-    fun read() {
-
+    private fun read() {
         val song = FirebaseDatabase.getInstance().reference.child("ListSong").orderByValue()
         song.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                data.clear()
                 for (dataSnapshot: DataSnapshot in snapshot.children) {
                     val value = dataSnapshot.getValue(SongModel::class.java)
                     if (value != null) {
@@ -68,16 +54,15 @@ class Search : Fragment() {
                         adapter.notifyDataSetChanged()
                     }
                 }
+                displayData.addAll(data)
             }
 
             override fun onCancelled(error: DatabaseError) {
             }
         })
-
-
     }
 
-    fun search() {
+    private fun search() {
         binding.searchview.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
@@ -91,13 +76,14 @@ class Search : Fragment() {
                     data.forEach {
 
                         if (it.title.toLowerCase(Locale.getDefault()).contains(search)) {
-                            read()
                             displayData.add(it)
                         }
                     }
                     adapter.notifyDataSetChanged()
                 } else {
-                    read()
+                    displayData.clear()
+                    displayData.addAll(data)
+                    adapter.notifyDataSetChanged()
                 }
 
                 return true
