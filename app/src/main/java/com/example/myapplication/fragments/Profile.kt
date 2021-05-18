@@ -66,15 +66,10 @@ class Profile : Fragment() {
         val sp:SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
         val nightmode = sp.getBoolean("nightmode", false)
-        val name = sp.getString("name", "")
-        val email = sp.getString("email", "")
         val notifications = sp.getBoolean("notifications", false)
-
 
         //todo
         //notifications
-        //change email
-
 
         //nightmode
         if (nightmode){
@@ -83,18 +78,6 @@ class Profile : Fragment() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
-
-
-        val reference = FirebaseDatabase.getInstance().reference.child("Users")
-            .child(user.uid)
-
-        val hashMap = HashMap<String, String>()
-        hashMap["fullname"] = name.toString()
-        hashMap["email"] = email.toString()
-        hashMap["id"] = user.uid
-
-
-        reference.setValue(hashMap)
 
     }
 

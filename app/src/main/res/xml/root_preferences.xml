@@ -6,6 +6,7 @@
     <PreferenceCategory
         android:title="App Settings"
         android:icon="@drawable/ic_baseline_settings_24">
+
         <CheckBoxPreference
             android:key="nightmode"
             android:title="Night Mode"
@@ -13,22 +14,6 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="Profile"
-        android:icon="@drawable/ic_baseline_person_24">
-        <EditTextPreference
-            android:key="name"
-            android:title="Change Name"
-            app:useSimpleSummaryProvider="true"
-            />
-
-        <EditTextPreference
-            android:key="email"
-            android:title="Change Email"
-            app:useSimpleSummaryProvider="true"
-            />
-
-    </PreferenceCategory>
 
     <PreferenceCategory
         android:title="Notifications"

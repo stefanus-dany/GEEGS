@@ -14,7 +14,6 @@ class SongAdapter(val SongData : MutableList<SongModel>) : RecyclerView.Adapter<
 
     lateinit var context : Context
 
-
     class ViewHolder(val binding: ResultListBinding)  : RecyclerView.ViewHolder(binding.root) {
 
     }
