@@ -11,5 +11,6 @@ class companion {
         const val CURRENT_USER = "current_user"
         const val MOVE_FROM_LOGIN_TO_VERIFIED_EMAIL = "move_from_login_to_verified_email"
         const val MOVE_FROM_VERIFIED_EMAIL_TO_LOGIN = "move_from_verified_email_to_login"
+        const val TITLE_DATA = "title_data"
     }
 }

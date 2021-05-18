@@ -10,4 +10,5 @@
     <color name="grayLight">#C4C4C4</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#CACACA</color>
+    <color name="blueLink">#0000FF</color>
 </resources>

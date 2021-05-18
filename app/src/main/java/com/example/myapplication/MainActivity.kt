@@ -3,10 +3,10 @@ package com.example.myapplication
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.example.myapplication.Fragments.Home
-import com.example.myapplication.Fragments.Notification
-import com.example.myapplication.Fragments.Profile
-import com.example.myapplication.Fragments.Search
+import com.example.myapplication.fragments.Home
+import com.example.myapplication.fragments.Notification
+import com.example.myapplication.fragments.Profile
+import com.example.myapplication.fragments.Search
 import com.example.myapplication.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

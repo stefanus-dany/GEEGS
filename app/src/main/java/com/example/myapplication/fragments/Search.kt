@@ -1,4 +1,4 @@
-package com.example.myapplication.Fragments
+package com.example.myapplication.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication.Adapter.SongAdapter
+import com.example.myapplication.adapter.SongAdapter
 import com.example.myapplication.databinding.FragmentSearchBinding
 import com.example.myapplication.model.SongModel
 import com.google.firebase.database.DataSnapshot
@@ -69,13 +69,12 @@ class Search : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-
                 if (newText!!.isNotEmpty()) {
                     displayData.clear()
                     val search = newText.toLowerCase(Locale.getDefault())
                     data.forEach {
-
-                        if (it.title.toLowerCase(Locale.getDefault()).contains(search)) {
+                        if (it.title.toLowerCase(Locale.getDefault()).contains(search) ||
+                            it.artist.toLowerCase(Locale.getDefault()).contains(search)) {
                             displayData.add(it)
                         }
                     }
@@ -85,11 +84,13 @@ class Search : Fragment() {
                     displayData.addAll(data)
                     adapter.notifyDataSetChanged()
                 }
-
                 return true
-
             }
-
         })
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.searchview.setQuery("", false)
     }
 }

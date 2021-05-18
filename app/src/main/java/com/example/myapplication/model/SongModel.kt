@@ -5,4 +5,5 @@ class SongModel {
     var title = ""
     var lyrics = ""
     var url = ""
+    var genre = ""
 }
