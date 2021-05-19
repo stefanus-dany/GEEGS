@@ -1,8 +1,13 @@
 package com.example.myapplication
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
+import com.example.myapplication.companion.companion
 import com.example.myapplication.fragments.Profile
 
 class Settings : AppCompatActivity() {
@@ -17,6 +22,7 @@ class Settings : AppCompatActivity() {
                 .commit()
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
