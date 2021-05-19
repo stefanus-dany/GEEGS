@@ -64,7 +64,6 @@ class Profile : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
 //        val sp:SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 //
 //        val nightmode = sp.getBoolean("nightmode", false)
@@ -79,8 +78,6 @@ class Profile : Fragment() {
 //        }else{
 //            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 //        }
-
-
     }
 
 }
