@@ -9,9 +9,10 @@
 
     <SearchView
         android:id="@+id/searchview"
-        android:layout_width="340dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_search"
+        app:layout_constraintEnd_toStartOf="@id/btn_speak"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         >
@@ -25,7 +26,6 @@
         android:layout_weight="1"
         android:background="@drawable/bg_search"
         android:src="@drawable/ic_baseline_mic_24"
-        app:layout_constraintStart_toEndOf="@id/searchview"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginLeft="3dp"/>
