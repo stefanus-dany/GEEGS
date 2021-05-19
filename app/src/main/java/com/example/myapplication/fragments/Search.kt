@@ -1,10 +1,15 @@
 package com.example.myapplication.fragments
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
+import android.speech.RecognizerResultsIntent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.adapter.SongAdapter
@@ -14,6 +19,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.lang.Exception
 import java.util.*
 
 class Search : Fragment() {
@@ -22,6 +28,7 @@ class Search : Fragment() {
     private lateinit var adapter: SongAdapter
     private lateinit var data: MutableList<SongModel>
     private lateinit var displayData: MutableList<SongModel>
+    val REQUEST_CODE_SPEECH_INPUT = 100
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,9 +48,15 @@ class Search : Fragment() {
         binding.rvSearchlist.layoutManager = LinearLayoutManager(context)
         binding.rvSearchlist.adapter = adapter
         search()
+
+        binding.btnSpeak.setOnClickListener{
+            speak()
+
+        }
     }
 
     private fun read() {
+        data.clear()
         val song = FirebaseDatabase.getInstance().reference.child("ListSong").orderByValue()
         song.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -92,5 +105,31 @@ class Search : Fragment() {
     override fun onPause() {
         super.onPause()
         binding.searchview.setQuery("", false)
+    }
+
+    private fun speak(){
+        val move = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        move.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+        move.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+        move.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak Now!")
+
+        try {
+            startActivityForResult(move, REQUEST_CODE_SPEECH_INPUT)
+        }catch (e: Exception){
+
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode){
+            REQUEST_CODE_SPEECH_INPUT->{
+                if(resultCode == Activity.RESULT_OK && data != null){
+                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                    binding.searchview.setQuery(result?.get(0)?.toString(), false)
+                    binding.searchview.isIconified = false
+                }
+            }
+        }
     }
 }
