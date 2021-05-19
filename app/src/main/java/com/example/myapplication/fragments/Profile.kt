@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
+import com.example.myapplication.MainActivity
 import com.example.myapplication.Settings
 import com.example.myapplication.databinding.FragmentProfileBinding
 import com.example.myapplication.model.UserModel
@@ -57,26 +58,27 @@ class Profile : Fragment() {
             activity?.startActivity(Intent(context, Settings::class.java))
         }
 
+
     }
 
 
     override fun onResume() {
         super.onResume()
 
-        val sp:SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-
-        val nightmode = sp.getBoolean("nightmode", false)
-        val notifications = sp.getBoolean("notifications", false)
-
-        //todo
-        //notifications
-
-        //nightmode
-        if (nightmode){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }else{
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
+//        val sp:SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+//
+//        val nightmode = sp.getBoolean("nightmode", false)
+//        val notifications = sp.getBoolean("notifications", false)
+//
+//        //todo
+//        //notifications
+//
+//        //nightmode
+//        if (nightmode){
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//        }else{
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//        }
 
 
     }

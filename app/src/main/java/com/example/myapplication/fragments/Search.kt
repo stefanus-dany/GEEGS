@@ -1,12 +1,20 @@
 package com.example.myapplication.fragments
 
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication.MainActivity
+import com.example.myapplication.R
 import com.example.myapplication.adapter.SongAdapter
 import com.example.myapplication.databinding.FragmentSearchBinding
 import com.example.myapplication.model.SongModel
@@ -31,6 +39,7 @@ class Search : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         data = mutableListOf()
@@ -41,6 +50,10 @@ class Search : Fragment() {
         binding.rvSearchlist.layoutManager = LinearLayoutManager(context)
         binding.rvSearchlist.adapter = adapter
         search()
+
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+            binding.searchview.backgroundTintList = ColorStateList.valueOf(Color.DKGRAY)
+        } else binding.searchview.setBackgroundResource(R.drawable.bg_search)
     }
 
     private fun read() {
