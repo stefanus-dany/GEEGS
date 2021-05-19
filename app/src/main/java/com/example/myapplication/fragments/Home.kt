@@ -30,7 +30,7 @@ class Home : Fragment() {
         }
         binding.btnAddsong.setOnClickListener {
             startActivity(Intent(context, AddSong::class.java))
-            activity?.finish()
+
         }
     }
 
