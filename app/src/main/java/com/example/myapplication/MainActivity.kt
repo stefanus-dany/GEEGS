@@ -66,17 +66,17 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         Log.i("errorProfile", "onStart: errorProfile")
-//        val sp: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-//
-//        val nightmode = sp.getBoolean("nightmode", false)
-//        val notifications = sp.getBoolean("notifications", false)
-//
-//        //nightmode
-//        if (nightmode) {
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-//        } else {
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-//        }
+        val sp: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+
+        val nightmode = sp.getBoolean("nightmode", false)
+        val notifications = sp.getBoolean("notifications", false)
+
+        //nightmode
+        if (nightmode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
     }
 
     override fun onResume() {

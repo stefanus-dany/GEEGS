@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.util.Log
 import android.app.Activity
 import android.content.Intent
-import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.speech.RecognizerResultsIntent
 import android.view.LayoutInflater
