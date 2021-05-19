@@ -1,9 +1,12 @@
 package com.example.myapplication
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.preference.PreferenceManager
 import com.example.myapplication.databinding.ActivitySplashScreenBinding
 
 class SplashScreen : AppCompatActivity() {
@@ -13,6 +16,8 @@ class SplashScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        checkNightMode()
 
         binding.ivSplash.alpha = 0f
         binding.descText.alpha = 0f
@@ -25,5 +30,19 @@ class SplashScreen : AppCompatActivity() {
             finish()
         }
 
+    }
+
+    fun checkNightMode(){
+        val sp: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+
+        val nightmode = sp.getBoolean("nightmode", false)
+        val notifications = sp.getBoolean("notifications", false)
+
+        //nightmode
+        if (nightmode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
     }
 }

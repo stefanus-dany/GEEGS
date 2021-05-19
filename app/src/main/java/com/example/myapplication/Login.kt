@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -26,6 +27,7 @@ class Login : AppCompatActivity() {
     private var moveFromVerifiedEmailToLogin = false
     private val TAG = "check"
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -47,6 +49,9 @@ class Login : AppCompatActivity() {
         }
 
         binding.rememberMe.isChecked = rememberMe
+
+        binding.email.setTextColor(R.color.black)
+        binding.password.setTextColor(R.color.black)
 
         binding.btnSignup.setOnClickListener {
             startActivity(Intent(this, Register::class.java))

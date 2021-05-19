@@ -1,13 +1,18 @@
 package com.example.myapplication.addsong
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.databinding.ActivityAddSongBinding
@@ -23,6 +28,7 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var spinner: Spinner
     private lateinit var genre: String
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddSongBinding.inflate(layoutInflater)
@@ -38,6 +44,12 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
         spinner.onItemSelectedListener = this
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            binding.listgenre.backgroundTintList = ColorStateList.valueOf(Color.DKGRAY)
+            binding.etLyrics.backgroundTintList = ColorStateList.valueOf(Color.DKGRAY)
+
+        }
 
         binding.btnSumbitSong.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
