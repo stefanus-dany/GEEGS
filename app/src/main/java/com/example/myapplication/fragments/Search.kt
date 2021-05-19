@@ -51,7 +51,6 @@ class Search : Fragment() {
 
         binding.btnSpeak.setOnClickListener{
             speak()
-
         }
     }
 
