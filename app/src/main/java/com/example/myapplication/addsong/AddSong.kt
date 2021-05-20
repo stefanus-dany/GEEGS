@@ -172,16 +172,15 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
 
-        val bitmapLargeIcon =
-            BitmapFactory.decodeResource(applicationContext.resources, R.drawable.logo_geegs)
+        val bitmapLargeIcon = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.logo_geegs)
 
         var builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.logo_geegs)
             .setContentTitle("Your song has been added!")
-            .setContentText("Congratulation your lyrics has been added to Geegs! Thank you for your contributions and let's sing together!")
+            .setContentText("Congratulation your "+ binding.etTitle.text.toString() +" lyrics has been added to Geegs! Thank you for your contributions and let's sing together!")
             .setLargeIcon(bitmapLargeIcon)
             .setStyle(NotificationCompat.BigTextStyle()
-                .bigText("Congratulation your lyrics has been added to Geegs! Thank you for your contributions and let's sing together!"))
+                .bigText("Congratulation your "+ binding.etTitle.text.toString() +" lyrics has been added to Geegs! Thank you for your contributions and let's sing together!"))
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
