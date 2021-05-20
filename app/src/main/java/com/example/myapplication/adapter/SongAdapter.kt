@@ -9,6 +9,7 @@ import com.example.myapplication.DetailLyric
 import com.example.myapplication.companion.Companion
 import com.example.myapplication.databinding.ResultListBinding
 import com.example.myapplication.model.SongModel
+import com.google.firebase.database.FirebaseDatabase
 
 class SongAdapter(val SongData : MutableList<SongModel>) : RecyclerView.Adapter<SongAdapter.ViewHolder>() {
 
@@ -27,6 +28,9 @@ class SongAdapter(val SongData : MutableList<SongModel>) : RecyclerView.Adapter<
             val move = Intent(context, DetailLyric::class.java)
             move.putExtra(Companion.TITLE_DATA, SongData[position].title)
             context.startActivity(move)
+            val ref = FirebaseDatabase.getInstance().reference.child("ListSong").child(SongData[position].title).child("count")
+            val temp = (SongData[position].count.toInt())+1
+            ref.setValue(temp.toString())
         }
     }
 

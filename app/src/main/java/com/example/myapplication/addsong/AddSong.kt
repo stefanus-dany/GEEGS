@@ -19,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.navigation.NavDeepLinkBuilder
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.companion.Companion
@@ -119,17 +118,18 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
             reference.setValue(hashMap).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    val reference2 = FirebaseDatabase.getInstance().reference.child("ListSong")
+                    val reference = FirebaseDatabase.getInstance().reference.child("ListSong")
                         .child(binding.etTitle.text.toString())
 
-                    val hashMap2 = HashMap<String, String>()
+                    val hashMap = HashMap<String, String>()
                     hashMap["artist"] = binding.etBy.text.toString()
                     hashMap["title"] = binding.etTitle.text.toString()
                     hashMap["genre"] = genre
                     hashMap["lyrics"] = binding.etLyrics.text.toString()
                     hashMap["url"] = binding.etUrl.text.toString()
+                    hashMap["count"] = 0.toString()
 
-                    reference2.setValue(hashMap2).addOnCompleteListener {
+                    reference.setValue(hashMap).addOnCompleteListener {
                         if (it.isSuccessful) {
                             binding.progressBar.visibility = View.INVISIBLE
                         } else {
