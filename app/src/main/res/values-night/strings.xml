@@ -69,4 +69,10 @@
     <string name="my_profile">My Profile</string>
     <string name="song_title_result">Song Title</string>
     <string name="artist_result">artist</string>
+    <string name="geegs_locked">GEEGS Locked</string>
+    <string name="insert_password_manually">Insert Password Manually</string>
+    <string name="tap_below_to_insert_fingerprint">Tap below to insert fingerprint</string>
+    <string name="go">Go</string>
+    <string name="create_password_for_fingerprint">Create password for Fingerprint</string>
+    <string name="confirm_password">Confirm Password</string>
 </resources>

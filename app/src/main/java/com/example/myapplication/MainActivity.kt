@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,7 @@ import com.example.myapplication.fragments.Search
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var sharedPreferences : SharedPreferences
     private lateinit var binding: ActivityMainBinding
     private var goToProfile: Boolean? = false
 
@@ -24,18 +26,12 @@ class MainActivity : AppCompatActivity() {
         Log.i("errorProfile", "onCreate: errorProfile")
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        sharedPreferences = getSharedPreferences("sharedPrefs3", Context.MODE_PRIVATE)
         //deklarasi dan inisiasi kelas
         val homefrag = Home()
         val searchfrag = Search()
         val notificationfrag = Notification()
         val profilefrag = Profile()
-        val fromaddsong = intent.getBooleanExtra(Companion.MOVE_FROM_ADDSONG_TO_NOTIFICATION, false)
-
-        Log.i("muh", "onCreate: "+fromaddsong)
-        if (fromaddsong){
-            makeCurrentFragment(notificationfrag)
-        }
 
         //mengubah fragment saat icon di klik
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
@@ -110,6 +106,7 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Log.i("errorProfile", "onDestroy: errorProfile")
+
     }
 
     override fun onStop() {

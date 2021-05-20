@@ -14,5 +14,6 @@ class Companion {
         const val TITLE_DATA = "title_data"
         const val MOVE_FROM_ADDSONG_TO_NOTIFICATION = "move_from_addsong_to_notification"
         const val NIGHT_MODE = "night_mode"
+        const val SAVE_PASSWORD_FINGERPRINT = "save_password_fingerprint"
     }
 }
