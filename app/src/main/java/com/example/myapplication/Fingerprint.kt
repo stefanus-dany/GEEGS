@@ -133,7 +133,7 @@ class Fingerprint : AppCompatActivity() {
     private fun visibleFingerprint() {
         val biometricPrompt = BiometricPrompt.Builder(this)
             .setTitle("GEEGS Locked")
-            .setSubtitle("Fingerprint is required")
+            .setSubtitle("Authentication is required")
             .setDescription("GEEGS uses fingerprint protection to keep your data secure")
             .setNegativeButton("Cancel", this.mainExecutor, { _, _ ->
                 notifyUser("Authentication cancelled")
