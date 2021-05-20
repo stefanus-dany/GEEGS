@@ -1,5 +1,6 @@
 package com.example.myapplication.addsong
 
+import android.app.Notification.DEFAULT_ALL
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -11,15 +12,14 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
+import androidx.annotation.ContentView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.navigation.NavDeepLinkBuilder
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.companion.Companion
@@ -36,7 +36,8 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var userId: String
     private lateinit var spinner: Spinner
     private lateinit var genre: String
-    private val CHANNEL_ID = "channel_id_example_01"
+
+    private val CHANNEL_ID = "com.example.myapplication.addsong"
     private val notificationId = 101
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -64,6 +65,7 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         //create notification
         createNotificationChannel()
+
 
         binding.btnSumbitSong.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
@@ -147,15 +149,17 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             }
         }
     }
-
     private fun createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "Notification Title"
             val descriptionText = "Notification Description"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val importance = NotificationManager.IMPORTANCE_HIGH
             val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
                 description = descriptionText
             }
+            // Register the channel with the system
             val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
@@ -165,20 +169,22 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             intent.putExtra(Companion.MOVE_FROM_ADDSONG_TO_NOTIFICATION, true)
         }
+
         val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
 
-        val bitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.logo_geegs)
         val bitmapLargeIcon =
             BitmapFactory.decodeResource(applicationContext.resources, R.drawable.logo_geegs)
 
-        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle("Example Title")
-            .setContentText("Example Description")
+        var builder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.drawable.logo_geegs)
+            .setContentTitle("Your song has been added!")
+            .setContentText("Congratulation your lyrics has been added to Geegs! Thank you for your contributions and let's sing together!")
             .setLargeIcon(bitmapLargeIcon)
-            .setStyle(NotificationCompat.BigPictureStyle().bigPicture(bitmap))
+            .setStyle(NotificationCompat.BigTextStyle()
+                .bigText("Congratulation your lyrics has been added to Geegs! Thank you for your contributions and let's sing together!"))
             .setContentIntent(pendingIntent)
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setAutoCancel(true)
 
         with(NotificationManagerCompat.from(this)) {
             notify(notificationId, builder.build())
