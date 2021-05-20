@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Geegs</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="don_t_have_an_account"><u>Dont have an account?</u></string>
     <string name="musicgenre_prompt">Choose song genre</string>
 
@@ -32,41 +32,6 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <string name="add_song">ADD SONG</string>
-    <string name="by">by*</string>
-    <string name="primary_artist">(Primary Artist, Author, Creator, etc)</string>
-    <string name="title">Title*</string>
-    <string name="song_title">(Song Title)</string>
-    <string name="genre">Genre*</string>
-    <string name="lyrics">Lyrics*</string>
-    <string name="youtube_url">Youtube URL</string>
-    <string name="youtube_url_hint">(Youtube URL)</string>
-    <string name="submit">Submit</string>
-    <string name="title_detail_lyrics">Title</string>
-    <string name="artist_detail_lyrics">by Artist</string>
-    <string name="url_detail_lyrics">Url :</string>
-    <string name="url_tv_detail_lyrics">youtube.com</string>
-    <string name="lyric_detail_lyrics">Lyric</string>
-    <string name="genre_detail_lyrics">Genre :</string>
-    <string name="welcome_to_geegs">Welcome to GEEGS</string>
-    <string name="desc_geegs">lyrics song for everyone</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="logo">Logo</string>
-    <string name="login">Login</string>
-    <string name="remember_me">Remember Me</string>
-    <string name="geegs">GEEGS</string>
-    <string name="sign_up_to_geegs">Sign Up to GEEGS</string>
-    <string name="full_name">Full Name</string>
-    <string name="password_at_least_6_characters">Password (at least 6 characters)</string>
-    <string name="sign_up">Sign Up</string>
-    <string name="verification_email_notif">Verification email has been sent to geegs@gmail.com</string>
-    <string name="resend_code">Resend code in</string>
-    <string name="one_minutes">1:00</string>
-    <string name="resend_code_button">Resend Code</string>
-    <string name="logout">logout</string>
-    <string name="add_a_song">Add a Song</string>
-    <string name="my_profile">My Profile</string>
     <string name="song_title_result">Song Title</string>
     <string name="artist_result">artist</string>
 </resources>
