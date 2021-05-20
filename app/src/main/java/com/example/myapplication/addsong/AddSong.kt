@@ -1,7 +1,12 @@
 package com.example.myapplication.addsong
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -13,9 +18,13 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
+import com.example.myapplication.companion.Companion
 import com.example.myapplication.databinding.ActivityAddSongBinding
+import com.example.myapplication.fragments.Notification
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
@@ -27,6 +36,8 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var userId: String
     private lateinit var spinner: Spinner
     private lateinit var genre: String
+    private val CHANNEL_ID = "channel_id_example_01"
+    private val notificationId = 101
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +61,9 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             binding.etLyrics.backgroundTintList = ColorStateList.valueOf(Color.DKGRAY)
 
         }
+
+        //create notification
+        createNotificationChannel()
 
         binding.btnSumbitSong.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
@@ -124,12 +138,50 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     binding.progressBar.visibility = View.INVISIBLE
                     Toast.makeText(this, "Song lyrics has been added.", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, MainActivity::class.java))
+                    sendNotification()
                     finish()
                 } else {
                     Toast.makeText(this, "Database failed", Toast.LENGTH_SHORT).show()
                     binding.progressBar.visibility = View.INVISIBLE
                 }
             }
+        }
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "Notification Title"
+            val descriptionText = "Notification Description"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+            }
+            val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+    private fun sendNotification() {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            intent.putExtra(Companion.MOVE_FROM_ADDSONG_TO_NOTIFICATION, true)
+        }
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+
+        val bitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.logo_geegs)
+        val bitmapLargeIcon =
+            BitmapFactory.decodeResource(applicationContext.resources, R.drawable.logo_geegs)
+
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle("Example Title")
+            .setContentText("Example Description")
+            .setLargeIcon(bitmapLargeIcon)
+            .setStyle(NotificationCompat.BigPictureStyle().bigPicture(bitmap))
+            .setContentIntent(pendingIntent)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(this)) {
+            notify(notificationId, builder.build())
         }
     }
 

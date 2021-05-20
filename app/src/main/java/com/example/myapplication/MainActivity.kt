@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
+import com.example.myapplication.companion.Companion
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.fragments.Home
 import com.example.myapplication.fragments.Notification
@@ -29,6 +30,12 @@ class MainActivity : AppCompatActivity() {
         val searchfrag = Search()
         val notificationfrag = Notification()
         val profilefrag = Profile()
+        val fromaddsong = intent.getBooleanExtra(Companion.MOVE_FROM_ADDSONG_TO_NOTIFICATION, false)
+
+        Log.i("muh", "onCreate: "+fromaddsong)
+        if (fromaddsong){
+            makeCurrentFragment(notificationfrag)
+        }
 
         //mengubah fragment saat icon di klik
         binding.bottomNavigation.setOnNavigationItemSelectedListener {

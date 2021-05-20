@@ -12,6 +12,7 @@ class Companion {
         const val MOVE_FROM_LOGIN_TO_VERIFIED_EMAIL = "move_from_login_to_verified_email"
         const val MOVE_FROM_VERIFIED_EMAIL_TO_LOGIN = "move_from_verified_email_to_login"
         const val TITLE_DATA = "title_data"
+        const val MOVE_FROM_ADDSONG_TO_NOTIFICATION = "move_from_addsong_to_notification"
         const val NIGHT_MODE = "night_mode"
     }
 }
