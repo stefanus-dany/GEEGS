@@ -18,8 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/montserrat_bold"
-            android:text="Sign Up to GEEGS"
-            android:textColor="@color/navy"
+            android:text="@string/sign_up_to_geegs"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +31,8 @@
             android:src="@mipmap/ic_launcher"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/logo" />
 
         <EditText
             android:id="@+id/email"
@@ -42,12 +42,14 @@
             android:background="@drawable/bg_field"
             android:ems="10"
             android:fontFamily="@font/montserrat"
-            android:hint="Email"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:paddingStart="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signup_text" />
+            app:layout_constraintTop_toBottomOf="@+id/signup_text"
+            android:autofillHints=""
+            tools:ignore="RtlSymmetry" />
 
         <EditText
             android:id="@+id/fullnameRegister"
@@ -57,14 +59,14 @@
             android:background="@drawable/bg_field"
             android:ems="10"
             android:fontFamily="@font/montserrat"
-            android:hint="Full Name"
+            android:hint="@string/full_name"
             android:inputType="text"
             android:paddingStart="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email" />
-
-
+            app:layout_constraintTop_toBottomOf="@+id/email"
+            tools:ignore="RtlSymmetry"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/password"
@@ -74,12 +76,14 @@
             android:background="@drawable/bg_field"
             android:ems="10"
             android:fontFamily="@font/montserrat"
-            android:hint="Password (at least 6 characters)"
+            android:hint="@string/password_at_least_6_characters"
             android:inputType="textPassword"
             android:paddingStart="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fullnameRegister" />
+            app:layout_constraintTop_toBottomOf="@+id/fullnameRegister"
+            tools:ignore="RtlSymmetry"
+            android:autofillHints="" />
 
         <Button
             android:id="@+id/btnSignup"
@@ -87,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:fontFamily="@font/montserrat"
-            android:text="Sign Up"
+            android:text="@string/sign_up"
             android:textAllCaps="false"
             android:textSize="16sp"
             android:textStyle="bold"

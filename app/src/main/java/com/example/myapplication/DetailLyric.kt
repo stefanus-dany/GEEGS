@@ -1,10 +1,11 @@
 package com.example.myapplication
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.companion.companion
+import com.example.myapplication.companion.Companion
 import com.example.myapplication.databinding.ActivityDetailLyricBinding
 import com.example.myapplication.model.SongModel
 import com.google.firebase.database.DataSnapshot
@@ -16,13 +17,14 @@ class DetailLyric : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailLyricBinding
     private lateinit var getTitle: String
-    var count = false
+    private var count = false
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailLyricBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        getTitle = intent.getStringExtra(companion.TITLE_DATA) as String
+        getTitle = intent.getStringExtra(Companion.TITLE_DATA) as String
         getLyrics()
 
         binding.tvUrl.setOnClickListener {
@@ -46,6 +48,7 @@ class DetailLyric : AppCompatActivity() {
     private fun getLyrics() {
         val reference = FirebaseDatabase.getInstance().reference.child("ListSong").child(getTitle)
         reference.addValueEventListener(object : ValueEventListener {
+            @SuppressLint("SetTextI18n")
             override fun onDataChange(snapshot: DataSnapshot) {
                 val value = snapshot.getValue(SongModel::class.java)
                 binding.title.text = value?.title
@@ -56,7 +59,6 @@ class DetailLyric : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
             }
 
         })

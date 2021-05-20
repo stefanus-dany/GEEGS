@@ -28,8 +28,8 @@
         android:src="@drawable/ic_baseline_mic_24"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginLeft="3dp"/>
-
+        android:layout_marginStart="3dp"
+        android:contentDescription="@string/logo" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_searchlist"

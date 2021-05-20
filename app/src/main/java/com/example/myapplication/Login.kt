@@ -5,12 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.companion.companion
+import androidx.appcompat.app.AppCompatDelegate
+import com.example.myapplication.companion.Companion
 import com.example.myapplication.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -25,7 +25,6 @@ class Login : AppCompatActivity() {
     private lateinit var user: FirebaseUser
     private lateinit var sharedPreferences: SharedPreferences
     private var moveFromVerifiedEmailToLogin = false
-    private val TAG = "check"
 
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,14 +34,12 @@ class Login : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
 
-        val emailSaved = sharedPreferences.getString(companion.CHECK_EMAIL, null)
-        val passwordSaved = sharedPreferences.getString(companion.CHECK_PASSWORD, null)
-        val rememberMe = sharedPreferences.getBoolean(companion.REMEMBER_ME, false)
-        moveFromVerifiedEmailToLogin = intent.getBooleanExtra(companion.MOVE_FROM_VERIFIED_EMAIL_TO_LOGIN, false)
+        val emailSaved = sharedPreferences.getString(Companion.CHECK_EMAIL, null)
+        val passwordSaved = sharedPreferences.getString(Companion.CHECK_PASSWORD, null)
+        val rememberMe = sharedPreferences.getBoolean(Companion.REMEMBER_ME, false)
+        moveFromVerifiedEmailToLogin =
+            intent.getBooleanExtra(Companion.MOVE_FROM_VERIFIED_EMAIL_TO_LOGIN, false)
 
-        Log.i(TAG, "onCreate email: $emailSaved")
-        Log.i(TAG, "onCreate pass: $passwordSaved")
-        Log.i(TAG, "onCreate: $rememberMe")
         if (rememberMe && emailSaved != null && passwordSaved != null) {
             binding.email.setText(emailSaved)
             binding.password.setText(passwordSaved)
@@ -50,8 +47,12 @@ class Login : AppCompatActivity() {
 
         binding.rememberMe.isChecked = rememberMe
 
-        binding.email.setTextColor(R.color.black)
-        binding.password.setTextColor(R.color.black)
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            binding.email.setTextColor(R.color.black)
+            binding.email.setHintTextColor(R.color.black)
+            binding.password.setTextColor(R.color.black)
+            binding.password.setHintTextColor(R.color.black)
+        }
 
         binding.btnSignup.setOnClickListener {
             startActivity(Intent(this, Register::class.java))
@@ -88,7 +89,7 @@ class Login : AppCompatActivity() {
 
     }
 
-    fun login() {
+    private fun login() {
         auth.signInWithEmailAndPassword(
             binding.email.text.toString().trim(),
             binding.password.text.toString().trim()
@@ -96,10 +97,10 @@ class Login : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     //get user
-                    user = auth.currentUser
+                    user = auth.currentUser as FirebaseUser
                     if (user.isEmailVerified) {
                         val reference = FirebaseDatabase.getInstance().reference.child("Users")
-                            .child(auth.currentUser.uid)
+                            .child(user.uid)
                         reference.addValueEventListener(object : ValueEventListener {
                             override fun onDataChange(dataSnapshot: DataSnapshot) {
                                 binding.progressBar.visibility = View.INVISIBLE
@@ -116,7 +117,7 @@ class Login : AppCompatActivity() {
                         Toast.makeText(this, "Verified your account first!", Toast.LENGTH_SHORT)
                             .show()
                         val move = Intent(this, VerifiedEmail::class.java)
-                        move.putExtra(companion.MOVE_FROM_LOGIN_TO_VERIFIED_EMAIL, true)
+                        move.putExtra(Companion.MOVE_FROM_LOGIN_TO_VERIFIED_EMAIL, true)
                         startActivity(move)
 
                     }
@@ -147,12 +148,11 @@ class Login : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        Log.i(TAG, "onPause: ${binding.rememberMe.isChecked}")
         val editor = sharedPreferences.edit()
         if (binding.rememberMe.isChecked) {
-            editor.putString(companion.CHECK_EMAIL, binding.email.text.toString())
-            editor.putString(companion.CHECK_PASSWORD, binding.password.text.toString())
-            editor.putBoolean(companion.REMEMBER_ME, true)
+            editor.putString(Companion.CHECK_EMAIL, binding.email.text.toString())
+            editor.putString(Companion.CHECK_PASSWORD, binding.password.text.toString())
+            editor.putBoolean(Companion.REMEMBER_ME, true)
             editor.apply()
         } else editor.clear().commit()
     }

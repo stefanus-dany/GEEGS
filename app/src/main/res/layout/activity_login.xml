@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/montserrat_bold"
-        android:text="Welcome to GEEGS"
+        android:text="@string/welcome_to_geegs"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat"
-        android:text="lyrics song for everyone"
+        android:text="@string/desc_geegs"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +37,8 @@
         android:src="@mipmap/ic_launcher"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/logo" />
 
     <EditText
         android:id="@+id/email"
@@ -47,13 +48,15 @@
         android:background="@drawable/bg_field"
         android:ems="10"
         android:fontFamily="@font/montserrat"
-        android:hint="Email"
+        android:hint="@string/email"
         android:inputType="textPersonName"
         android:paddingStart="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/desc_text" />
+        app:layout_constraintTop_toBottomOf="@+id/desc_text"
+        tools:ignore="RtlSymmetry,TextFields"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/password"
@@ -63,12 +66,14 @@
         android:background="@drawable/bg_field"
         android:ems="10"
         android:fontFamily="@font/montserrat"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:paddingStart="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/email"
+        android:autofillHints=""
+        tools:ignore="RtlSymmetry" />
 
     <Button
         android:id="@+id/btnLogin"
@@ -76,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/montserrat"
-        android:text="Login"
+        android:text="@string/login"
         android:textAllCaps="false"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -112,7 +117,7 @@
         android:id="@+id/rememberMe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Remember Me"
+        android:hint="@string/remember_me"
         android:fontFamily="@font/montserrat"
         tools:layout_editor_absoluteX="88dp"
         tools:layout_editor_absoluteY="552dp"

@@ -11,14 +11,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tv_addsong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"
-            android:text="ADD SONG"
+            android:text="@string/add_song"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:fontFamily="@font/montserrat"
-            android:text="by*"
+            android:text="@string/by"
             android:textColor="@color/grey"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/tv_addsong"
@@ -40,11 +40,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"
-            android:hint="(Primary Artist, Author, Creator, etc)"
+            android:hint="@string/primary_artist"
             android:inputType="textPersonName"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_by" />
+            app:layout_constraintTop_toBottomOf="@id/tv_by"
+            android:autofillHints="" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -52,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:fontFamily="@font/montserrat"
-            android:text="Title*"
+            android:text="@string/title"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/tv_addsong"
             app:layout_constraintTop_toBottomOf="@id/et_by" />
@@ -62,11 +63,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"
-            android:hint="(Song Title)"
+            android:hint="@string/song_title"
             android:inputType="textPersonName"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/tv_addsong"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            android:autofillHints="" />
 
         <TextView
             android:id="@+id/tv_genre"
@@ -74,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:fontFamily="@font/montserrat"
-            android:text="Genre*"
+            android:text="@string/genre"
             android:textColor="@color/grey"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tv_addsong"
@@ -96,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:fontFamily="@font/montserrat"
-            android:text="Lyrics*"
+            android:text="@string/lyrics"
             android:textColor="@color/grey"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tv_addsong"
@@ -109,8 +111,11 @@
             android:background="@drawable/bg_field"
             android:inputType="text|textMultiLine"
             android:gravity="top"
+            android:padding="5dp"
             app:layout_constraintStart_toStartOf="@id/tv_addsong"
-            app:layout_constraintTop_toBottomOf="@id/tv_lyrics" />
+            app:layout_constraintTop_toBottomOf="@id/tv_lyrics"
+            android:autofillHints=""
+            tools:ignore="LabelFor" />
 
         <TextView
             android:id="@+id/tv_url"
@@ -118,7 +123,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:fontFamily="@font/montserrat"
-            android:text="Youtube URL"
+            android:text="@string/youtube_url"
             android:textColor="@color/grey"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/tv_addsong"
@@ -129,11 +134,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"
-            android:hint="(Youtube URL)"
+            android:hint="@string/youtube_url_hint"
             android:inputType="textPersonName"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/tv_addsong"
-            app:layout_constraintTop_toBottomOf="@id/tv_url" />
+            app:layout_constraintTop_toBottomOf="@id/tv_url"
+            tools:ignore="TextFields"
+            android:autofillHints="" />
 
         <Button
             android:id="@+id/btn_sumbitSong"
@@ -141,7 +148,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:fontFamily="@font/montserrat"
-            android:text="Submit"
+            android:text="@string/submit"
             android:textAllCaps="false"
             app:layout_constraintStart_toStartOf="@id/tv_addsong"
             app:layout_constraintTop_toBottomOf="@id/et_url" />
