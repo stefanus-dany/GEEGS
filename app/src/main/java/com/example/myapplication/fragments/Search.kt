@@ -33,12 +33,12 @@ class Search : Fragment() {
     private lateinit var adapter: SongAdapter
     private lateinit var data: MutableList<SongModel>
     private lateinit var displayData: MutableList<SongModel>
-    val REQUEST_CODE_SPEECH_INPUT = 100
+    private val REQUEST_CODE_SPEECH_INPUT = 100
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
         return binding.root
     }

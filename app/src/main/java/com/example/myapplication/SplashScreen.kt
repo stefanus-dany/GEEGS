@@ -4,7 +4,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 import com.example.myapplication.databinding.ActivitySplashScreenBinding
@@ -32,11 +31,11 @@ class SplashScreen : AppCompatActivity() {
 
     }
 
-    fun checkNightMode(){
+    private fun checkNightMode(){
         val sp: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
 
         val nightmode = sp.getBoolean("nightmode", false)
-        val notifications = sp.getBoolean("notifications", false)
+//        val notifications = sp.getBoolean("notifications", false)
 
         //nightmode
         if (nightmode) {

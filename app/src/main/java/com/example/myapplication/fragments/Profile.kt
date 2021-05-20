@@ -1,15 +1,11 @@
 package com.example.myapplication.fragments
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.preference.PreferenceManager
-import com.example.myapplication.MainActivity
 import com.example.myapplication.Settings
 import com.example.myapplication.databinding.FragmentProfileBinding
 import com.example.myapplication.model.UserModel
@@ -30,7 +26,7 @@ class Profile : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentProfileBinding.inflate(layoutInflater, container, false)
         return binding.root
 
@@ -41,7 +37,7 @@ class Profile : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         auth = FirebaseAuth.getInstance()
-        user = auth.currentUser
+        user = auth.currentUser as FirebaseUser
 
         val profile = FirebaseDatabase.getInstance().reference.child("Users").child(user.uid)
         profile.addValueEventListener(object : ValueEventListener{
@@ -57,27 +53,5 @@ class Profile : Fragment() {
         binding.ibSettings.setOnClickListener{
             activity?.startActivity(Intent(context, Settings::class.java))
         }
-
-
     }
-
-
-    override fun onResume() {
-        super.onResume()
-//        val sp:SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-//
-//        val nightmode = sp.getBoolean("nightmode", false)
-//        val notifications = sp.getBoolean("notifications", false)
-//
-//        //todo
-//        //notifications
-//
-//        //nightmode
-//        if (nightmode){
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-//        }else{
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-//        }
-    }
-
 }

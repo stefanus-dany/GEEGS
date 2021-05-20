@@ -1,6 +1,6 @@
 package com.example.myapplication.companion
 
-class companion {
+class Companion {
 
     companion object{
         const val CHECK_EMAIL = "check_email"

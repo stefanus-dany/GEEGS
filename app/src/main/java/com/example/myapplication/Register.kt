@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -7,7 +8,8 @@ import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.companion.companion
+import androidx.appcompat.app.AppCompatDelegate
+import com.example.myapplication.companion.Companion
 import com.example.myapplication.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -19,11 +21,21 @@ class Register : AppCompatActivity() {
     private lateinit var user: FirebaseUser
     private lateinit var userId: String
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            binding.email.setTextColor(R.color.black)
+            binding.email.setHintTextColor(R.color.black)
+            binding.fullnameRegister.setTextColor(R.color.black)
+            binding.fullnameRegister.setHintTextColor(R.color.black)
+            binding.password.setTextColor(R.color.black)
+            binding.password.setHintTextColor(R.color.black)
+        }
 
         binding.btnSignup.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
@@ -70,18 +82,18 @@ class Register : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         //get user
-                        user = auth.currentUser
+                        user = auth.currentUser as FirebaseUser
                         //get user ID
                         userId = user.uid
                         user.sendEmailVerification().addOnSuccessListener {
                             val move = Intent(this, VerifiedEmail::class.java)
-                            move.putExtra(companion.EMAIL_SENT, binding.email.text.toString())
-                            move.putExtra(companion.CURRENT_USER, user)
-                            Log.i(companion.TAG, "userRegister: $user")
+                            move.putExtra(Companion.EMAIL_SENT, binding.email.text.toString())
+                            move.putExtra(Companion.CURRENT_USER, user)
+                            Log.i(Companion.TAG, "userRegister: $user")
                             startActivity(move)
                             finish()
                         }.addOnFailureListener {
-                            Log.d(companion.TAG, "onFailure: Email not sent" + it.message)
+                            Log.d(Companion.TAG, "onFailure: Email not sent" + it.message)
                         }
 
                         //simpan di database Users

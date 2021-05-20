@@ -89,7 +89,7 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 return@setOnClickListener
             }
 
-            user = auth.currentUser
+            user = auth.currentUser as FirebaseUser
             userId = user.uid
 
             val reference = FirebaseDatabase.getInstance().reference.child("Songs")
@@ -103,17 +103,17 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
             reference.setValue(hashMap).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    val reference = FirebaseDatabase.getInstance().reference.child("ListSong")
+                    val reference2 = FirebaseDatabase.getInstance().reference.child("ListSong")
                         .child(binding.etTitle.text.toString())
 
-                    val hashMap = HashMap<String, String>()
+                    val hashMap2 = HashMap<String, String>()
                     hashMap["artist"] = binding.etBy.text.toString()
                     hashMap["title"] = binding.etTitle.text.toString()
                     hashMap["genre"] = genre
                     hashMap["lyrics"] = binding.etLyrics.text.toString()
                     hashMap["url"] = binding.etUrl.text.toString()
 
-                    reference.setValue(hashMap).addOnCompleteListener {
+                    reference2.setValue(hashMap2).addOnCompleteListener {
                         if (it.isSuccessful) {
                             binding.progressBar.visibility = View.INVISIBLE
                         } else {
@@ -139,6 +139,5 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
     }
 }
