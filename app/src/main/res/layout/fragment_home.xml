@@ -6,16 +6,9 @@
     tools:context=".fragments.Home">
 
     <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/logout"/>
-
-    <Button
         android:id="@+id/btnAddsong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:text="@string/add_a_song" />
 
 </FrameLayout>

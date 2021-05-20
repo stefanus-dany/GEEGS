@@ -23,11 +23,6 @@ class Home : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnLogout.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            startActivity(Intent(context, Login::class.java))
-            activity?.finish()
-        }
         binding.btnAddsong.setOnClickListener {
             startActivity(Intent(context, AddSong::class.java))
 

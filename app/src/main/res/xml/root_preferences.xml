@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:key="first_preferencescreen">
 
     <PreferenceCategory
@@ -24,6 +23,18 @@
             android:title="Disable notifications"
             android:summaryOn="You will no longer receive notifications"
             android:summaryOff="You will receive all notifications"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Manage Account"
+        android:icon="@drawable/ic_baseline_manage_accounts_24">
+
+        <Preference
+            android:title="Logout"
+            android:key="logout"
+            android:summary="Click here to logout your account"
+            />
 
     </PreferenceCategory>
 
