@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         Log.i("errorProfile", "onCreate: errorProfile")
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        sharedPreferences = getSharedPreferences("sharedPrefs3", Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences("sharedPrefs4", Context.MODE_PRIVATE)
         //deklarasi dan inisiasi kelas
         val homefrag = Home()
         val searchfrag = Search()
@@ -71,7 +71,6 @@ class MainActivity : AppCompatActivity() {
         val sp: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
 
         val nightmode = sp.getBoolean("nightmode", false)
-//        val notifications = sp.getBoolean("notifications", false)
 
         //nightmode
         if (nightmode) {
@@ -96,6 +95,8 @@ class MainActivity : AppCompatActivity() {
                 binding.bottomNavigation.selectedItemId = R.id.profile_icon
             }
         }
+
+
     }
 
     override fun onPause() {
@@ -106,7 +107,6 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Log.i("errorProfile", "onDestroy: errorProfile")
-
     }
 
     override fun onStop() {

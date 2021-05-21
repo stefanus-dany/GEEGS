@@ -5,11 +5,13 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
@@ -17,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.preference.PreferenceManager
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.companion.Companion
@@ -24,6 +27,8 @@ import com.example.myapplication.databinding.ActivityAddSongBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import java.util.*
+import kotlin.collections.HashMap
 
 class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var binding: ActivityAddSongBinding
@@ -32,7 +37,7 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var userId: String
     private lateinit var spinner: Spinner
     private lateinit var genre: String
-    private var checkSongAvailable = false
+    private lateinit var sharedPreferences: SharedPreferences
 
     private val CHANNEL_ID = "com.example.myapplication.addsong"
     private val notificationId = 101
@@ -45,7 +50,7 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         auth = FirebaseAuth.getInstance()
         user = auth.currentUser as FirebaseUser
         userId = user.uid
-
+        sharedPreferences = getSharedPreferences("sharedPrefs4", Context.MODE_PRIVATE)
         spinner = binding.listgenre
         val adapter = ArrayAdapter.createFromResource(
             this,
@@ -223,7 +228,15 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 binding.progressBar.visibility = View.INVISIBLE
                 Toast.makeText(this, "Song lyrics has been added.", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, MainActivity::class.java))
-                sendNotification()
+
+                //check shared preference notification settings, if true then send notification
+                val sp: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+
+                //check notif in settings checked?
+                val notifOn = sp.getBoolean("notifications", false)
+                if (notifOn) {
+                    sendNotification()
+                }
                 finish()
             } else {
                 Toast.makeText(this, "Database failed", Toast.LENGTH_SHORT).show()

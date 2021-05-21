@@ -45,7 +45,7 @@ class Home : Fragment() {
 
     private fun init () {
         data.clear()
-        val song = FirebaseDatabase.getInstance().reference.child("ListSong").orderByValue()
+        val song = FirebaseDatabase.getInstance().reference.child("ListSong")
         song.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (dataSnapshot: DataSnapshot in snapshot.children) {
