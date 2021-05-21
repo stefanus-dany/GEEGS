@@ -13,9 +13,9 @@ class Companion {
         const val MOVE_FROM_VERIFIED_EMAIL_TO_LOGIN = "move_from_verified_email_to_login"
         const val TITLE_DATA = "title_data"
         const val MOVE_FROM_ADDSONG_TO_NOTIFICATION = "move_from_addsong_to_notification"
-        const val NIGHT_MODE = "night_mode"
         const val SAVE_PASSWORD_FINGERPRINT = "save_password_fingerprint"
         const val RESULT_FROM_SETPASSWORD_TO_PROFILE = "result_from_setpassword_to_profile"
         const val RESULTCODE_FROM_SETPASSWORD_TO_PROFILE = 100
+        const val REQUEST_CODE_SPEECH_INPUT = 100
     }
 }

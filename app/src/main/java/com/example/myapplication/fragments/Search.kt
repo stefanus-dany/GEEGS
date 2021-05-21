@@ -8,6 +8,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,21 +34,30 @@ class Search : Fragment() {
     private lateinit var adapter: SongAdapter
     private lateinit var data: MutableList<SongModel>
     private lateinit var displayData: MutableList<SongModel>
+    private lateinit var tmpData: MutableList<SongModel>
     private val REQUEST_CODE_SPEECH_INPUT = 100
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Log.i("strt", "onCreateView: ")
         binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.i("strt", "onViewCreated: ")
         data = mutableListOf()
         displayData = mutableListOf()
+        tmpData = mutableListOf()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    override fun onStart() {
+        super.onStart()
+        Log.i("strt", "onStart: ")
         read()
         adapter = SongAdapter(displayData)
         adapter.context = requireContext()
@@ -110,8 +120,11 @@ class Search : Fragment() {
         })
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onStop() {
+        super.onStop()
+        Log.i("strt", "onStop: ")
+        data.clear()
+        displayData.clear()
         binding.searchview.setQuery("", false)
     }
 
