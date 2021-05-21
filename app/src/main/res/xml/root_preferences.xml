@@ -23,9 +23,9 @@
 
         <SwitchPreferenceCompat
             android:key="notifications"
-            android:title="Disable notifications"
-            android:summaryOn="You will no longer receive notifications"
-            android:summaryOff="You will receive all notifications"/>
+            android:title="Enable notifications"
+            android:summaryOn="You will receive all notifications"
+            android:summaryOff="You will no longer receive notifications"/>
 
     </PreferenceCategory>
 
