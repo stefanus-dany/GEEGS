@@ -6,5 +6,5 @@ class SongModel {
     var lyrics = ""
     var url = ""
     var genre = ""
-    var count = ""
+    var count = 0
 }

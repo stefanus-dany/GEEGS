@@ -29,8 +29,8 @@ class SongAdapter(val SongData : MutableList<SongModel>) : RecyclerView.Adapter<
             move.putExtra(Companion.TITLE_DATA, SongData[position].title)
             context.startActivity(move)
             val ref = FirebaseDatabase.getInstance().reference.child("ListSong").child(SongData[position].title).child("count")
-            val temp = (SongData[position].count.toInt())+1
-            ref.setValue(temp.toString())
+            val temp = (SongData[position].count)+1
+            ref.setValue(temp)
         }
     }
 

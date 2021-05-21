@@ -215,11 +215,12 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 hashMap["genre"] = genre
                 hashMap["lyrics"] = binding.etLyrics.text.toString()
                 hashMap["url"] = binding.etUrl.text.toString()
-                hashMap["count"] = 0.toString()
+                //hashMap["count"] = 0.toString()
 
                 reference.setValue(hashMap).addOnCompleteListener {
                     if (it.isSuccessful) {
                         binding.progressBar.visibility = View.INVISIBLE
+                        reference.child("count").setValue(0)
                     } else {
                         Toast.makeText(this, "Database failed", Toast.LENGTH_SHORT).show()
                         binding.progressBar.visibility = View.INVISIBLE

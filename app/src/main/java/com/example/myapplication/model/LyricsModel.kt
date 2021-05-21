@@ -1,6 +1,6 @@
 package com.example.myapplication.model
 
 class LyricsModel () {
-    var rank = ""
+    var count = 0
     var title = ""
 }

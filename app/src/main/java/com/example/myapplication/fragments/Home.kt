@@ -35,6 +35,12 @@ class Home : Fragment() {
             startActivity(Intent(context, AddSong::class.java))
         }
         data = mutableListOf()
+
+
+    }
+
+    override fun onStart() {
+        super.onStart()
         adapter = LyricsAdapter(data)
         adapter.mContext = requireContext()
 
@@ -43,9 +49,14 @@ class Home : Fragment() {
         init()
     }
 
+    override fun onPause() {
+        super.onPause()
+        data.clear()
+    }
+
     private fun init () {
         data.clear()
-        val song = FirebaseDatabase.getInstance().reference.child("ListSong")
+        val song = FirebaseDatabase.getInstance().reference.child("ListSong").orderByChild("count").limitToLast(10)
         song.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (dataSnapshot: DataSnapshot in snapshot.children) {
@@ -55,6 +66,8 @@ class Home : Fragment() {
                         adapter.notifyDataSetChanged()
                     }
                 }
+                data.reverse()
+                adapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(error: DatabaseError) {
