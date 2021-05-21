@@ -108,6 +108,7 @@ class Register : AppCompatActivity() {
                         reference.setValue(hashMap).addOnCompleteListener {
                             if (task.isSuccessful) {
                                 binding.progressBar.visibility = View.INVISIBLE
+                                reference.child("idCountNotif").setValue(0)
                             } else {
                                 Toast.makeText(this, "Database failed", Toast.LENGTH_SHORT).show()
                                 binding.progressBar.visibility = View.INVISIBLE

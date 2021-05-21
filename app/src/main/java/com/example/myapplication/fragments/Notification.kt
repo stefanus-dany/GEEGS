@@ -51,6 +51,7 @@ class Notification : Fragment() {
     private fun init () {
         data.clear()
         val song = FirebaseDatabase.getInstance().reference.child("Users").child(user.uid).child("notification")
+            .orderByChild("id")
         song.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (dataSnapshot: DataSnapshot in snapshot.children) {
@@ -60,6 +61,7 @@ class Notification : Fragment() {
                         adapter.notifyDataSetChanged()
                     }
                 }
+                data.reverse()
                 if (data.isEmpty()){
                     binding.noNotif.visibility = View.VISIBLE
                 } else {

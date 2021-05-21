@@ -23,9 +23,11 @@ import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.companion.Companion
 import com.example.myapplication.databinding.ActivityAddSongBinding
+import com.example.myapplication.model.UserModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -227,11 +229,29 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                         binding.progressBar.visibility = View.INVISIBLE
                         reference.child("count").setValue(0)
 
-                        val hashMap = HashMap<String, String>()
-                        hashMap["title"] = binding.etTitle.text.toString()
-                        hashMap["desc"] = "Congratulation your " + binding.etTitle.text.toString() + " lyrics has been added to Geegs! Thank you for your contributions and let's sing together!"
-                        val connection = FirebaseDatabase.getInstance().reference.child("Users").child(user.uid).child("notification").child(binding.etTitle.text.toString())
-                        connection.setValue(hashMap)
+                        val reff = FirebaseDatabase.getInstance().reference.child("Users")
+                            .child(user.uid)
+                        reff.addListenerForSingleValueEvent(object : ValueEventListener{
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                val value = snapshot.getValue(UserModel::class.java)
+                                val get = value?.idCountNotif//0
+
+                                val hashMap = HashMap<String, String>()
+                                hashMap["title"] = binding.etTitle.text.toString()
+                                hashMap["desc"] = "Congratulation your " + binding.etTitle.text.toString() + " lyrics has been added to Geegs! Thank you for your contributions and let's sing together!"
+                                val connection = FirebaseDatabase.getInstance().reference.child("Users").child(user.uid).child("notification").child(binding.etTitle.text.toString())
+                                connection.setValue(hashMap).addOnSuccessListener {
+                                    if (get != null) {
+                                        connection.child("id").setValue(get+1)
+                                        reff.child("idCountNotif").setValue(get+1)
+                                    }
+                                }
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                            }
+                        })
+
                     } else {
                         Toast.makeText(this, "Database failed", Toast.LENGTH_SHORT).show()
                         binding.progressBar.visibility = View.INVISIBLE
