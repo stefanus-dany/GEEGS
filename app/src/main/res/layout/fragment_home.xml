@@ -48,7 +48,7 @@
         android:background="@drawable/bg_field"
         android:contentDescription="@string/logo"
         android:padding="10dp"
-        android:text="@string/add_a_lyric_song"
+        android:text="Add new song lyrics"
         android:textStyle="bold"
         android:visibility="gone"
         android:textColor="@color/navy"
