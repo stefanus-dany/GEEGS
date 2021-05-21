@@ -19,5 +19,7 @@ class Companion {
         const val RESULTCODE_FROM_SETPASSWORD_TO_PROFILE = 100
         const val REQUEST_CODE_SPEECH_INPUT = 100
         const val SONG_TITLE = "song_title"
+        const val CLICK_NOTIF = "click_notif"
+        const val FROM_ADDSONG_TO_MAIN = "from_addsong_to_main"
     }
 }

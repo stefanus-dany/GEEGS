@@ -17,9 +17,10 @@ import com.example.myapplication.fragments.Search
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var sharedPreferences : SharedPreferences
+    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: ActivityMainBinding
     private var goToProfile: Boolean? = false
+    private var fromAddSong = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         sharedPreferences = getSharedPreferences("sharedPrefs4", Context.MODE_PRIVATE)
+
         //deklarasi dan inisiasi kelas
         val homefrag = Home()
         val searchfrag = Search()
@@ -93,6 +95,17 @@ class MainActivity : AppCompatActivity() {
             }
             else -> {
                 binding.bottomNavigation.selectedItemId = R.id.profile_icon
+            }
+        }
+
+        val getSendNotif = sharedPreferences.getBoolean(Companion.CLICK_NOTIF, false)
+        fromAddSong = intent.getBooleanExtra(Companion.FROM_ADDSONG_TO_MAIN, false)
+
+        if (getSendNotif) {
+            if (!fromAddSong) {
+                binding.bottomNavigation.selectedItemId = R.id.notification_icon
+                val editor = sharedPreferences.edit()
+                editor.clear().apply()
             }
         }
 

@@ -60,7 +60,6 @@ class Home : Fragment() {
         super.onStart()
         adapter = LyricsAdapter(data)
         adapter.mContext = requireContext()
-
         binding.recyclerChart.layoutManager = LinearLayoutManager(context)
         binding.recyclerChart.adapter = adapter
         init()
@@ -81,7 +80,6 @@ class Home : Fragment() {
                     val value = dataSnapshot.getValue(LyricsModel::class.java)
                     if (value != null) {
                         data.add(value)
-                        adapter.notifyDataSetChanged()
                     }
                 }
                 data.reverse()

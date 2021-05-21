@@ -23,7 +23,6 @@ import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.companion.Companion
 import com.example.myapplication.databinding.ActivityAddSongBinding
-import com.example.myapplication.fragments.Notification
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -161,6 +160,10 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         val intent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             intent.putExtra(Companion.MOVE_FROM_ADDSONG_TO_NOTIFICATION, true)
+            sharedPreferences = getSharedPreferences("sharedPrefs4", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putBoolean(Companion.CLICK_NOTIF, true)
+            editor.apply()
         }
 
         val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
@@ -236,7 +239,9 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 }
                 binding.progressBar.visibility = View.INVISIBLE
                 Toast.makeText(this, "Song lyrics has been added.", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, MainActivity::class.java))
+                val move = Intent(this, MainActivity::class.java)
+                move.putExtra(Companion.FROM_ADDSONG_TO_MAIN, true)
+                startActivity(move)
 
                 //check shared preference notification settings, if true then send notification
                 val sp: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
