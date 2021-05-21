@@ -186,6 +186,8 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         }
     }
 
+
+
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val text: String = parent?.getItemAtPosition(position).toString()
         genre = text

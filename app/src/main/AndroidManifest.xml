@@ -20,10 +20,14 @@
             android:name=".Settings"
             android:label="@string/title_activity_settings" />
         <activity android:name=".VerifiedEmail" />
-        <activity android:name=".Login" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Register" />
-        <activity android:name=".addsong.AddSong"/>
+        <activity android:name=".Login"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".Register"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".addsong.AddSong"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".SplashScreen"
             >
             <intent-filter>
