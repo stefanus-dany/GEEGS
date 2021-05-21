@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.profile_icon -> {
                     makeCurrentFragment(profilefrag)
+                    goToProfile = true
                 }
             }
             true
@@ -86,7 +87,6 @@ class MainActivity : AppCompatActivity() {
         when (goToProfile) {
             false -> {
                 binding.bottomNavigation.selectedItemId = R.id.home_icon
-                goToProfile = true
             }
             null -> {
                 binding.bottomNavigation.selectedItemId = R.id.search_icon

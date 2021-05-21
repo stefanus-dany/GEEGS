@@ -81,4 +81,6 @@
     <string name="you_have_no_notification">You have no notification</string>
     <string name="notification_title">Notification Title</string>
     <string name="notification_description">Notification Description</string>
+    <string name="charts"><u>CHARTS</u></string>
+    <string name="add_a_lyric_song">Add a Lyric Song</string>
 </resources>

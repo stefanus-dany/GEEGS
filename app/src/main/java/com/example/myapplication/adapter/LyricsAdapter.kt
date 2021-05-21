@@ -3,6 +3,7 @@ package com.example.myapplication.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -16,9 +17,7 @@ class LyricsAdapter(val dataLyrics: MutableList<LyricsModel>) :
     RecyclerView.Adapter<LyricsAdapter.ViewHolder>() {
     lateinit var mContext: Context
 
-    inner class ViewHolder(val binding: ItemLyricsBinding) : RecyclerView.ViewHolder(binding.root) {
-
-    }
+    inner class ViewHolder(val binding: ItemLyricsBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -33,6 +32,8 @@ class LyricsAdapter(val dataLyrics: MutableList<LyricsModel>) :
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.lyrics.text = "${position + 1}. ${dataLyrics[position].title}"
+        //underline text
+        holder.binding.lyrics.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         holder.itemView.setOnClickListener {
             val ref = FirebaseDatabase.getInstance().reference.child("ListSong")
                 .child(dataLyrics[position].title).child("count")
