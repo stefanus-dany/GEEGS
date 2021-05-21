@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.adapter.SongAdapter
+import com.example.myapplication.companion.Companion
 import com.example.myapplication.databinding.FragmentSearchBinding
 import com.example.myapplication.model.SongModel
 import com.google.firebase.database.DataSnapshot
@@ -35,7 +36,6 @@ class Search : Fragment() {
     private lateinit var data: MutableList<SongModel>
     private lateinit var displayData: MutableList<SongModel>
     private lateinit var tmpData: MutableList<SongModel>
-    private val REQUEST_CODE_SPEECH_INPUT = 100
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -135,7 +135,7 @@ class Search : Fragment() {
         move.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak Now!")
 
         try {
-            startActivityForResult(move, REQUEST_CODE_SPEECH_INPUT)
+            startActivityForResult(move, Companion.REQUEST_CODE_SPEECH_INPUT)
         }catch (e: Exception){
 
         }
@@ -144,7 +144,7 @@ class Search : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when(requestCode){
-            REQUEST_CODE_SPEECH_INPUT->{
+            Companion.REQUEST_CODE_SPEECH_INPUT->{
                 if(resultCode == Activity.RESULT_OK && data != null){
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     binding.searchview.setQuery(result?.get(0)?.toString(), false)

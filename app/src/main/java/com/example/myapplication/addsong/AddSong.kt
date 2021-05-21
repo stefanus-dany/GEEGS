@@ -1,6 +1,5 @@
 package com.example.myapplication.addsong
 
-import android.app.Notification.DEFAULT_ALL
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -13,7 +12,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import androidx.annotation.ContentView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -23,10 +21,9 @@ import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.companion.Companion
 import com.example.myapplication.databinding.ActivityAddSongBinding
-import com.example.myapplication.fragments.Notification
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 
 class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var binding: ActivityAddSongBinding
@@ -35,6 +32,7 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var userId: String
     private lateinit var spinner: Spinner
     private lateinit var genre: String
+    private var checkSongAvailable = false
 
     private val CHANNEL_ID = "com.example.myapplication.addsong"
     private val notificationId = 101
@@ -45,6 +43,8 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         binding = ActivityAddSongBinding.inflate(layoutInflater)
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
+        user = auth.currentUser as FirebaseUser
+        userId = user.uid
 
         spinner = binding.listgenre
         val adapter = ArrayAdapter.createFromResource(
@@ -104,51 +104,37 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 return@setOnClickListener
             }
 
-            user = auth.currentUser as FirebaseUser
-            userId = user.uid
-
-            val reference = FirebaseDatabase.getInstance().reference.child("Songs")
-                .child(userId).child(binding.etTitle.text.toString())
-
-            val hashMap = HashMap<String, String>()
-            hashMap["artist"] = binding.etBy.text.toString()
-            hashMap["title"] = binding.etTitle.text.toString()
-            hashMap["lyrics"] = binding.etLyrics.text.toString()
-            hashMap["url"] = binding.etUrl.text.toString()
-
-            reference.setValue(hashMap).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    val reference = FirebaseDatabase.getInstance().reference.child("ListSong")
-                        .child(binding.etTitle.text.toString())
-
-                    val hashMap = HashMap<String, String>()
-                    hashMap["artist"] = binding.etBy.text.toString()
-                    hashMap["title"] = binding.etTitle.text.toString()
-                    hashMap["genre"] = genre
-                    hashMap["lyrics"] = binding.etLyrics.text.toString()
-                    hashMap["url"] = binding.etUrl.text.toString()
-                    hashMap["count"] = 0.toString()
-
-                    reference.setValue(hashMap).addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            binding.progressBar.visibility = View.INVISIBLE
+            try {
+//            checkSongAvailable on database?
+                FirebaseDatabase.getInstance().reference.child("ListSong")
+                    .child(binding.etTitle.text.toString())
+                    .get().addOnSuccessListener {
+                        if (it.value == null) {
+                            addSongToDatabase()
                         } else {
-                            Toast.makeText(this, "Database failed", Toast.LENGTH_SHORT).show()
-                            binding.progressBar.visibility = View.INVISIBLE
+                            Toast.makeText(
+                                applicationContext,
+                                "This songs title already exists",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                            binding.progressBar.visibility = View.GONE
                         }
                     }
-                    binding.progressBar.visibility = View.INVISIBLE
-                    Toast.makeText(this, "Song lyrics has been added.", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, MainActivity::class.java))
-                    sendNotification()
-                    finish()
-                } else {
-                    Toast.makeText(this, "Database failed", Toast.LENGTH_SHORT).show()
-                    binding.progressBar.visibility = View.INVISIBLE
-                }
+            } catch (e: DatabaseException) {
+                Toast.makeText(
+                    this,
+                    "Title must not contain '.', '#', '\$', '[', or ']'",
+                    Toast.LENGTH_SHORT
+                ).show()
+                binding.progressBar.visibility = View.GONE
+            } catch (e: Exception) {
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility = View.GONE
             }
         }
     }
+
     private fun createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
@@ -160,10 +146,12 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 description = descriptionText
             }
             // Register the channel with the system
-            val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
     }
+
     private fun sendNotification() {
         val intent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -172,15 +160,18 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
 
-        val bitmapLargeIcon = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.logo_geegs)
+        val bitmapLargeIcon =
+            BitmapFactory.decodeResource(applicationContext.resources, R.drawable.logo_geegs)
 
-        var builder = NotificationCompat.Builder(this, CHANNEL_ID)
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.logo_geegs)
             .setContentTitle("Your song has been added!")
-            .setContentText("Congratulation your "+ binding.etTitle.text.toString() +" lyrics has been added to Geegs! Thank you for your contributions and let's sing together!")
+            .setContentText("Congratulation your " + binding.etTitle.text.toString() + " lyrics has been added to Geegs! Thank you for your contributions and let's sing together!")
             .setLargeIcon(bitmapLargeIcon)
-            .setStyle(NotificationCompat.BigTextStyle()
-                .bigText("Congratulation your "+ binding.etTitle.text.toString() +" lyrics has been added to Geegs! Thank you for your contributions and let's sing together!"))
+            .setStyle(
+                NotificationCompat.BigTextStyle()
+                    .bigText("Congratulation your " + binding.etTitle.text.toString() + " lyrics has been added to Geegs! Thank you for your contributions and let's sing together!")
+            )
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
@@ -197,4 +188,50 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
     }
+
+    private fun addSongToDatabase() {
+        val reference = FirebaseDatabase.getInstance().reference.child("Songs")
+            .child(userId).child(binding.etTitle.text.toString())
+
+        val hashMap = HashMap<String, String>()
+        hashMap["artist"] = binding.etBy.text.toString()
+        hashMap["title"] = binding.etTitle.text.toString()
+        hashMap["lyrics"] = binding.etLyrics.text.toString()
+        hashMap["url"] = binding.etUrl.text.toString()
+
+        reference.setValue(hashMap).addOnCompleteListener {
+            if (it.isSuccessful) {
+                val reference = FirebaseDatabase.getInstance().reference.child("ListSong")
+                    .child(binding.etTitle.text.toString())
+
+                val hashMap = HashMap<String, String>()
+                hashMap["artist"] = binding.etBy.text.toString()
+                hashMap["title"] = binding.etTitle.text.toString()
+                hashMap["genre"] = genre
+                hashMap["lyrics"] = binding.etLyrics.text.toString()
+                hashMap["url"] = binding.etUrl.text.toString()
+                hashMap["count"] = 0.toString()
+
+                reference.setValue(hashMap).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        binding.progressBar.visibility = View.INVISIBLE
+                    } else {
+                        Toast.makeText(this, "Database failed", Toast.LENGTH_SHORT).show()
+                        binding.progressBar.visibility = View.INVISIBLE
+                    }
+                }
+                binding.progressBar.visibility = View.INVISIBLE
+                Toast.makeText(this, "Song lyrics has been added.", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, MainActivity::class.java))
+                sendNotification()
+                finish()
+            } else {
+                Toast.makeText(this, "Database failed", Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility = View.INVISIBLE
+            }
+
+        }
+
+    }
+
 }
