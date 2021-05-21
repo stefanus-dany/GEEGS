@@ -51,6 +51,7 @@
         android:text="@string/add_a_lyric_song"
         android:textStyle="bold"
         android:visibility="gone"
+        android:textColor="navy"
         app:layout_constraintBottom_toBottomOf="@id/floatBtn"
         app:layout_constraintEnd_toStartOf="@id/floatBtn"
         app:layout_constraintTop_toTopOf="@+id/floatBtn" />
