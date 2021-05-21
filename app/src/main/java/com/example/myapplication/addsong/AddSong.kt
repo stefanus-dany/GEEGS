@@ -23,6 +23,7 @@ import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.companion.Companion
 import com.example.myapplication.databinding.ActivityAddSongBinding
+import com.example.myapplication.fragments.Notification
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -220,6 +221,12 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     if (it.isSuccessful) {
                         binding.progressBar.visibility = View.INVISIBLE
                         reference.child("count").setValue(0)
+
+                        val hashMap = HashMap<String, String>()
+                        hashMap["title"] = binding.etTitle.text.toString()
+                        hashMap["desc"] = "Congratulation your " + binding.etTitle.text.toString() + " lyrics has been added to Geegs! Thank you for your contributions and let's sing together!"
+                        val connection = FirebaseDatabase.getInstance().reference.child("Users").child(user.uid).child("notification").child(binding.etTitle.text.toString())
+                        connection.setValue(hashMap)
                     } else {
                         Toast.makeText(this, "Database failed", Toast.LENGTH_SHORT).show()
                         binding.progressBar.visibility = View.INVISIBLE
@@ -237,14 +244,16 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 if (notifOn) {
                     sendNotification()
                 }
+                val bundle = Bundle()
+                bundle.putString(Companion.SONG_TITLE, binding.etTitle.text.toString())
+                val fragobj = Notification()
+                fragobj.arguments = bundle
+
                 finish()
             } else {
                 Toast.makeText(this, "Database failed", Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility = View.INVISIBLE
             }
-
         }
-
     }
-
 }
