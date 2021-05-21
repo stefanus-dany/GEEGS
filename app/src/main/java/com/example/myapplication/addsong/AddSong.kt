@@ -242,15 +242,10 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 val sp: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
 
                 //check notif in settings checked?
-                val notifOn = sp.getBoolean("notifications", false)
-                if (notifOn) {
+                val notifOn = sp.getBoolean("notifications", true)
+                if (!notifOn) {
                     sendNotification()
                 }
-                val bundle = Bundle()
-                bundle.putString(Companion.SONG_TITLE, binding.etTitle.text.toString())
-                val fragobj = Notification()
-                fragobj.arguments = bundle
-
                 finish()
             } else {
                 Toast.makeText(this, "Database failed", Toast.LENGTH_SHORT).show()
