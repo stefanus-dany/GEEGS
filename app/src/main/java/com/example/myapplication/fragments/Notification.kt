@@ -28,7 +28,7 @@ class Notification : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentNotificationBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -59,6 +59,11 @@ class Notification : Fragment() {
                         data.add(value)
                         adapter.notifyDataSetChanged()
                     }
+                }
+                if (data.isEmpty()){
+                    binding.noNotif.visibility = View.VISIBLE
+                } else {
+                    binding.noNotif.visibility = View.GONE
                 }
             }
 

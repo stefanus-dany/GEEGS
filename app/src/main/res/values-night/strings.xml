@@ -77,4 +77,7 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="song_url">Song URL</string>
     <string name="create_password_for_biometric">Create password for biometric</string>
+    <string name="you_have_no_notification">You have no notification</string>
+    <string name="notification_title">Notification Title</string>
+    <string name="notification_description">Notification Description</string>
 </resources>
