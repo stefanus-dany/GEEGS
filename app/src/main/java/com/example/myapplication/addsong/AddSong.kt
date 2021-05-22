@@ -1,6 +1,5 @@
 package com.example.myapplication.addsong
 
-import android.R.attr.key
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -217,7 +216,6 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 hashMap["genre"] = genre
                 hashMap["lyrics"] = binding.etLyrics.text.toString()
                 hashMap["url"] = binding.etUrl.text.toString()
-                //hashMap["count"] = 0.toString()
 
                 reference.setValue(hashMap).addOnCompleteListener {
                     if (it.isSuccessful) {
@@ -259,6 +257,7 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 binding.progressBar.visibility = View.INVISIBLE
                 Toast.makeText(this, "Song lyrics has been added.", Toast.LENGTH_SHORT).show()
                 val move = Intent(this, MainActivity::class.java)
+                move.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(move)
 
                 //check shared preference notification settings, if true then send notification

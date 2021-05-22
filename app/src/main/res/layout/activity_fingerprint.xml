@@ -63,6 +63,7 @@
             android:ems="15"
             android:hint="@string/password"
             android:fontFamily="@font/montserrat"
+            android:textColor="@color/navy"
             android:inputType="textPassword"
             android:padding="5dp"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.hardware.biometrics.BiometricPrompt
 import android.os.Build
 import android.os.Bundle
@@ -15,7 +13,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import com.example.myapplication.companion.Companion
 import com.example.myapplication.databinding.ActivityFingerprintBinding
@@ -79,7 +76,9 @@ class Fingerprint : AppCompatActivity() {
             val passwordSettings =
                 sharedPreferences.getString(Companion.SAVE_PASSWORD_FINGERPRINT, null)
             if (binding.etPassword.text.toString().trim() == passwordSettings) {
-                startActivity(Intent(this, MainActivity::class.java))
+                val move = Intent(this, MainActivity::class.java)
+                move.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(move)
                 finish()
             } else {
                 Toast.makeText(this, "Wrong Password", Toast.LENGTH_SHORT).show()
