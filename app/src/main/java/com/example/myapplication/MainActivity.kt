@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -20,7 +21,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: ActivityMainBinding
     private var goToProfile: Boolean? = false
-    private var fromAddSong = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,32 +98,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val getSendNotif = sharedPreferences.getBoolean(Companion.CLICK_NOTIF, false)
-        fromAddSong = intent.getBooleanExtra(Companion.FROM_ADDSONG_TO_MAIN, false)
+        //if notic clicked, then go to notif frag
+        onNewIntent(intent)
+    }
 
-        if (getSendNotif) {
-            if (!fromAddSong) {
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        val extras = intent?.extras
+        if (extras!=null){
+            if (extras.containsKey(Companion.CLICK_NOTIF)){
                 binding.bottomNavigation.selectedItemId = R.id.notification_icon
-                val editor = sharedPreferences.edit()
-                editor.clear().apply()
             }
         }
-
-
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.i("errorProfile", "onPause: errorProfile")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.i("errorProfile", "onDestroy: errorProfile")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.i("errorProfile", "onStop: errorProfile")
     }
 }

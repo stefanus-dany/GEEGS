@@ -12,14 +12,10 @@ class Companion {
         const val MOVE_FROM_LOGIN_TO_VERIFIED_EMAIL = "move_from_login_to_verified_email"
         const val MOVE_FROM_VERIFIED_EMAIL_TO_LOGIN = "move_from_verified_email_to_login"
         const val TITLE_DATA = "title_data"
-        const val MOVE_FROM_ADDSONG_TO_NOTIFICATION = "move_from_addsong_to_notification"
         const val SAVE_PASSWORD_FINGERPRINT = "save_password_fingerprint"
-        const val SAVE_NOTIFICATION_SETTING = "save_notification_setting"
         const val RESULT_FROM_SETPASSWORD_TO_PROFILE = "result_from_setpassword_to_profile"
         const val RESULTCODE_FROM_SETPASSWORD_TO_PROFILE = 100
         const val REQUEST_CODE_SPEECH_INPUT = 100
-        const val SONG_TITLE = "song_title"
         const val CLICK_NOTIF = "click_notif"
-        const val FROM_ADDSONG_TO_MAIN = "from_addsong_to_main"
     }
 }

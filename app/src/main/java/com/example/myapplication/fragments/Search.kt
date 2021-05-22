@@ -35,7 +35,6 @@ class Search : Fragment() {
     private lateinit var adapter: SongAdapter
     private lateinit var data: MutableList<SongModel>
     private lateinit var displayData: MutableList<SongModel>
-    private lateinit var tmpData: MutableList<SongModel>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +50,6 @@ class Search : Fragment() {
         Log.i("strt", "onViewCreated: ")
         data = mutableListOf()
         displayData = mutableListOf()
-        tmpData = mutableListOf()
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)

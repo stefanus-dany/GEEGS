@@ -1,5 +1,6 @@
 package com.example.myapplication.addsong
 
+import android.R.attr.key
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -27,9 +28,9 @@ import com.example.myapplication.model.UserModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import com.google.firebase.ktx.Firebase
 import java.util.*
 import kotlin.collections.HashMap
+
 
 class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var binding: ActivityAddSongBinding
@@ -38,7 +39,6 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var userId: String
     private lateinit var spinner: Spinner
     private lateinit var genre: String
-    private lateinit var sharedPreferences: SharedPreferences
 
     private val CHANNEL_ID = "com.example.myapplication.addsong"
     private val notificationId = 101
@@ -51,7 +51,6 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         auth = FirebaseAuth.getInstance()
         user = auth.currentUser as FirebaseUser
         userId = user.uid
-        sharedPreferences = getSharedPreferences("sharedPrefs4", Context.MODE_PRIVATE)
         spinner = binding.listgenre
         val adapter = ArrayAdapter.createFromResource(
             this,
@@ -161,11 +160,7 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private fun sendNotification() {
         val intent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            intent.putExtra(Companion.MOVE_FROM_ADDSONG_TO_NOTIFICATION, true)
-            sharedPreferences = getSharedPreferences("sharedPrefs4", Context.MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
-            editor.putBoolean(Companion.CLICK_NOTIF, true)
-            editor.apply()
+            putExtra(Companion.CLICK_NOTIF, true)
         }
 
         val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
@@ -231,19 +226,23 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
                         val reff = FirebaseDatabase.getInstance().reference.child("Users")
                             .child(user.uid)
-                        reff.addListenerForSingleValueEvent(object : ValueEventListener{
+                        reff.addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onDataChange(snapshot: DataSnapshot) {
                                 val value = snapshot.getValue(UserModel::class.java)
                                 val get = value?.idCountNotif//0
 
                                 val hashMap = HashMap<String, String>()
                                 hashMap["title"] = binding.etTitle.text.toString()
-                                hashMap["desc"] = "Congratulation your " + binding.etTitle.text.toString() + " lyrics has been added to Geegs! Thank you for your contributions and let's sing together!"
-                                val connection = FirebaseDatabase.getInstance().reference.child("Users").child(user.uid).child("notification").child(binding.etTitle.text.toString())
+                                hashMap["desc"] =
+                                    "Congratulation your " + binding.etTitle.text.toString() + " lyrics has been added to Geegs! Thank you for your contributions and let's sing together!"
+                                val connection =
+                                    FirebaseDatabase.getInstance().reference.child("Users").child(
+                                        user.uid
+                                    ).child("notification").child(binding.etTitle.text.toString())
                                 connection.setValue(hashMap).addOnSuccessListener {
                                     if (get != null) {
-                                        connection.child("id").setValue(get+1)
-                                        reff.child("idCountNotif").setValue(get+1)
+                                        connection.child("id").setValue(get + 1)
+                                        reff.child("idCountNotif").setValue(get + 1)
                                     }
                                 }
                             }
@@ -260,7 +259,6 @@ class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 binding.progressBar.visibility = View.INVISIBLE
                 Toast.makeText(this, "Song lyrics has been added.", Toast.LENGTH_SHORT).show()
                 val move = Intent(this, MainActivity::class.java)
-                move.putExtra(Companion.FROM_ADDSONG_TO_MAIN, true)
                 startActivity(move)
 
                 //check shared preference notification settings, if true then send notification

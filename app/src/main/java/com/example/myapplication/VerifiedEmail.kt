@@ -45,6 +45,7 @@ class VerifiedEmail : AppCompatActivity() {
             val move = Intent(this, Login::class.java)
             move.putExtra(Companion.MOVE_FROM_VERIFIED_EMAIL_TO_LOGIN, true)
             startActivity(move)
+            finish()
         }
 
         binding.btnResendCode.setOnClickListener {
