@@ -21,13 +21,27 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: ActivityMainBinding
     private var goToProfile: Boolean? = false
+    private var goToSearch = false
+    private var runOnResume = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.i("errorProfile", "onCreate: errorProfile")
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        sharedPreferences = getSharedPreferences("sharedPrefs4", Context.MODE_PRIVATE)
+
+        sharedPreferences = getSharedPreferences("sharedPrefSearch", Context.MODE_PRIVATE)
+        goToSearch = sharedPreferences.getBoolean(Companion.GO_TO_SEARCH, false)
+        if (savedInstanceState != null) {
+            goToSearch = savedInstanceState.getBoolean(Companion.GO_TO_SEARCH_MAIN, false)
+            runOnResume = false
+        } else runOnResume = true
+
+        Log.i("cekGoTO", "gotosearch $goToSearch")
+        if (goToSearch){
+
+            binding.bottomNavigation.selectedItemId = R.id.search_icon
+        }
 
         //deklarasi dan inisiasi kelas
         val homefrag = Home()
@@ -86,15 +100,17 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         Log.i("errorProfile", "onResume: errorProfile")
-        when (goToProfile) {
-            false -> {
-                binding.bottomNavigation.selectedItemId = R.id.home_icon
-            }
-            null -> {
-                binding.bottomNavigation.selectedItemId = R.id.search_icon
-            }
-            else -> {
-                binding.bottomNavigation.selectedItemId = R.id.profile_icon
+        if (runOnResume) {
+            when (goToProfile) {
+                false -> {
+                    binding.bottomNavigation.selectedItemId = R.id.home_icon
+                }
+                null -> {
+                    binding.bottomNavigation.selectedItemId = R.id.search_icon
+                }
+                else -> {
+                    binding.bottomNavigation.selectedItemId = R.id.profile_icon
+                }
             }
         }
 
@@ -105,10 +121,15 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         val extras = intent?.extras
-        if (extras!=null){
-            if (extras.containsKey(Companion.CLICK_NOTIF)){
+        if (extras != null) {
+            if (extras.containsKey(Companion.CLICK_NOTIF)) {
                 binding.bottomNavigation.selectedItemId = R.id.notification_icon
             }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(Companion.GO_TO_SEARCH_MAIN, goToSearch)
     }
 }

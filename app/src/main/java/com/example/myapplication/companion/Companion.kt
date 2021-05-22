@@ -17,5 +17,9 @@ class Companion {
         const val RESULTCODE_FROM_SETPASSWORD_TO_PROFILE = 100
         const val REQUEST_CODE_SPEECH_INPUT = 100
         const val CLICK_NOTIF = "click_notif"
+        const val SAVE_INSTANCE_SEARCH_QUERY = "save_instance_search_query"
+        const val SAVE_INSTANCE_SEARCH_GOTO = "save_instance_search_query"
+        const val GO_TO_SEARCH = "go_to_search"
+        const val GO_TO_SEARCH_MAIN = "go_to_search"
     }
 }
