@@ -53,6 +53,16 @@ class Search : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.i("strt", "resume: ")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.i("strt", "onPause: ")
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.i("strt", "onViewCreated: ")
@@ -170,12 +180,14 @@ class Search : Fragment() {
                 }
                 return true
             }
+
+
         })
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.i("cuiop", "onDestroy:")
+        Log.i("strt", "onDestroy:")
         Log.i("cekGoTO", "onDestroy: mau masuk")
         if (binding.searchview.query!="") {
             Log.i("cekGoTO", "onDestroy: masuk")

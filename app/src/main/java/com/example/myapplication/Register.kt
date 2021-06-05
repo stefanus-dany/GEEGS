@@ -24,10 +24,12 @@ class Register : AppCompatActivity() {
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //inisiasi binding
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
 
+        //set warna field menjadi hitam jika night mode aktif
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             binding.email.setTextColor(R.color.black)
             binding.email.setHintTextColor(R.color.black)
@@ -114,7 +116,6 @@ class Register : AppCompatActivity() {
                                 binding.progressBar.visibility = View.INVISIBLE
                             }
                         }
-
 
                     } else {
                         Toast.makeText(

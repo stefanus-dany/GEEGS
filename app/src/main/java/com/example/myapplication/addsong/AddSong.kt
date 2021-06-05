@@ -30,7 +30,6 @@ import com.google.firebase.database.*
 import java.util.*
 import kotlin.collections.HashMap
 
-
 class AddSong : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var binding: ActivityAddSongBinding
     private lateinit var auth: FirebaseAuth
